@@ -9,8 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
-@RequestMapping("/client")
+@Controller
+@RequestMapping("/api/client")
 public class ClientController {
     private ClientService clientService;
 
@@ -21,10 +21,15 @@ public class ClientController {
     public ResponseEntity<Object> clients(){
         return new ResponseEntity<>(clientService.list(), HttpStatus.ACCEPTED);
     }
-    @PostMapping(path = "/new")
-    public ResponseEntity<Client> saveClient(@RequestBody Client client){
-        return new ResponseEntity<>(clientService.add(client), HttpStatus.ACCEPTED);
-    }
+//    @PostMapping(path = "/new")
+//    public ResponseEntity<Client> saveClient(@RequestBody Client client){
+//        System.out.println("Endpoint ajout, "+client);
+//        if(client.getPassword().equals(client.getConfPassword())) {
+//            System.out.println("Iciiiiiiiiii");
+//            return new ResponseEntity<>(clientService.add(client), HttpStatus.ACCEPTED);
+//        }else
+//            return null;
+//    }
     @PostMapping(path = "/addRoleToClient")
     public void addRoleToClient(@RequestBody RoleClientForm roleClientForm){
         clientService.addRoletoUser(roleClientForm.getEmail(), roleClientForm.getRoleName());

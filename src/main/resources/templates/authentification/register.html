@@ -1,57 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<meta charset="utf-8">
-	<meta name="viewport"    content="width=device-width, initial-scale=1.0">
-	<meta name="description" content="">
-	<meta name="author"      content="Sergey Pozhilov (GetTemplate.com)">
-	
-	<title>Sign up - Progressus Bootstrap template</title>
-
-	<link rel="shortcut icon" href="assets/images/gt_favicon.png">
-	
-	<link rel="stylesheet" media="screen" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
-	<link rel="stylesheet" href="assets/css/bootstrap.min.css">
-	<link rel="stylesheet" href="assets/css/font-awesome.min.css">
-
-	<!-- Custom styles for our template -->
-	<link rel="stylesheet" href="assets/css/bootstrap-theme.css" media="screen" >
-	<link rel="stylesheet" href="assets/css/main.css">
-
-	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-	<!--[if lt IE 9]>
-	<script src="assets/js/html5shiv.js"></script>
-	<script src="assets/js/respond.min.js"></script>
-	<![endif]-->
-</head>
-
-<body>
-	<!-- Fixed navbar -->
-	<div class="navbar navbar-inverse navbar-fixed-top headroom" >
-		<div class="container">
-			<div class="navbar-header">
-				<!-- Button for smallest screens -->
-				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-				<a class="navbar-brand" href="index.html"><img src="assets/images/logo.png" alt="Progressus HTML5 template"></a>
+	<div th:include="/modal/header.html"></div>
+	<script>
+		function validateForm(){
+			var password = document.getElementById("password").value;
+			var confirmPassword = document.getElementById("confirmPassword").value;
+			console.log(password);
+			console.log(confirmPassword);
+			if(!password == confirm.password){
+				$('#myModal').modal('show');
+				return false;
+			}
+			return true;
+		}
+	</script>
+	<div id="myModal" class="modal fade" tabindex="-1" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">Erreur de validation</h4>
+				</div>
+				<div class="modal-body">
+					<p>Les mots de passe ne correspondent pas. Veuillez vérifier votre saisie.</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+				</div>
 			</div>
-			<div class="navbar-collapse collapse">
-				<ul class="nav navbar-nav pull-right">
-					<li><a href="index.html">Home</a></li>
-					<li><a href="about.html">About</a></li>
-					<li class="dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown">More Pages <b class="caret"></b></a>
-						<ul class="dropdown-menu">
-							<li><a href="sidebar-left.html">Left Sidebar</a></li>
-							<li><a href="sidebar-right.html">Right Sidebar</a></li>
-						</ul>
-					</li>
-					<li><a href="contact.html">Contact</a></li>
-					<li class="active"><a class="btn" href="signin.html">SIGN IN / SIGN UP</a></li>
-				</ul>
-			</div><!--/.nav-collapse -->
 		</div>
-	</div> 
-	<!-- /.navbar -->
+	</div>
+<body>
+	<div th:include="/modal/nav-bar.html"></div>
 
 	<header id="head" class="secondary"></header>
 
@@ -64,7 +43,6 @@
 		</ol>
 
 		<div class="row">
-			
 			<!-- Article main content -->
 			<article class="col-xs-12 maincontent">
 				<header class="page-header">
@@ -74,32 +52,57 @@
 				<div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
 					<div class="panel panel-default">
 						<div class="panel-body">
-							<h3 class="thin text-center">Register a new account</h3>
-							<p class="text-center text-muted">Lorem ipsum dolor sit amet, <a href="signin.html">Login</a> adipisicing elit. Quo nulla quibusdam cum doloremque incidunt nemo sunt a tenetur omnis odio. </p>
+							<h3 class="thin text-center">Créez votre compte utilisateur</h3>
+							<p class="text-center text-muted">Cher Utilisateur si vous possédez déjà un compte, <a th:href="@{/login}">Cliquez ici</a> pour vous connecter.</p>
 							<hr>
-
-							<form>
+							<div th:if="${param.error}">
+								<p class="error-message" style="font-size: small; color: red;">Erreur d'enregistrement</p>
+							</div>
+							<form th:method="@{post}" th:action="@{/register}" th:object="${client}" onsubmit="return validateForm()">
 								<div class="top-margin">
 									<label>First Name</label>
-									<input type="text" class="form-control">
+									<input type="text" th:field="*{firstName}" class="form-control">
 								</div>
 								<div class="top-margin">
 									<label>Last Name</label>
-									<input type="text" class="form-control">
+									<input type="text" th:field="*{secondName}" class="form-control">
 								</div>
 								<div class="top-margin">
 									<label>Email Address <span class="text-danger">*</span></label>
-									<input type="text" class="form-control">
+									<input type="text" th:field="*{email}" class="form-control">
+									<div th:if="${param.errem}">
+										<p class="error-message" style="font-size: small; color: red;">Cette addresse existe déjà.</p>
+									</div>
+								</div>
+
+								<div class="row top-margin">
+									<div class="col-sm-6">
+										<label>Number ID Cart <span class="text-danger">*</span></label>
+										<input type="number" th:field="*{numIdCart}" class="form-control">
+										<div th:if="${param.erric}">
+											<p class="error-message" style="font-size: small; color: red;">Veuillez entrer une série de 17 chiffres.</p>
+										</div>
+									</div>
+									<div class="col-sm-6">
+										<label>Phone Number <span class="text-danger">*</span></label>
+										<input type="number" th:field="*{phoneNumber}" class="form-control">
+										<div th:if="${param.errph}">
+											<p class="error-message" style="font-size: small; color: red;">Ce numéro existe déjà, veuillez saisir un nouveau.</p>
+										</div>
+									</div>
 								</div>
 
 								<div class="row top-margin">
 									<div class="col-sm-6">
 										<label>Password <span class="text-danger">*</span></label>
-										<input type="text" class="form-control">
+										<input type="password" th:field="*{password}" class="form-control" id="password">
+										<div th:if="${param.error}">
+											<p class="error-message" style="font-size: small; color: red;">Veuillez entrer des mots de passe identiques</p>
+										</div>
 									</div>
 									<div class="col-sm-6">
 										<label>Confirm Password <span class="text-danger">*</span></label>
-										<input type="text" class="form-control">
+										<input type="password" class="form-control" th:field="*{confPassword}" id="confirmPassword">
 									</div>
 								</div>
 
@@ -109,7 +112,7 @@
 									<div class="col-lg-8">
 										<label class="checkbox">
 											<input type="checkbox"> 
-											I've read the <a href="page_terms.html">Terms and Conditions</a>
+											I've read the <a href="#">Terms and Conditions</a>
 										</label>                        
 									</div>
 									<div class="col-lg-4 text-right">

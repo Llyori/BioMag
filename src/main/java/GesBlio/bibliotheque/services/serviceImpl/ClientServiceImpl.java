@@ -5,10 +5,16 @@ import GesBlio.bibliotheque.entities.Client;
 import GesBlio.bibliotheque.repositories.AppRolesRepository;
 import GesBlio.bibliotheque.repositories.ClientRepository;
 import GesBlio.bibliotheque.services.ClientService;
+import net.bytebuddy.utility.RandomString;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 @Service
 @Transactional
@@ -16,11 +22,13 @@ public class ClientServiceImpl implements ClientService {
     private ClientRepository clientRepository;
     private AppRolesRepository rolesRepository;
     private PasswordEncoder passwordEncoder;
+    private JavaMailSender mailSender;
 
-    public ClientServiceImpl(ClientRepository clientRepository, AppRolesRepository rolesRepository, PasswordEncoder passwordEncoder) {
+    public ClientServiceImpl(ClientRepository clientRepository, AppRolesRepository rolesRepository, PasswordEncoder passwordEncoder, JavaMailSender mailSender) {
         this.clientRepository = clientRepository;
         this.rolesRepository = rolesRepository;
         this.passwordEncoder = passwordEncoder;
+        this.mailSender = mailSender;
     }
 
     @Override
@@ -32,7 +40,41 @@ public class ClientServiceImpl implements ClientService {
     public Client add(Client client) {
         String pw = client.getPassword();
         client.setPassword(passwordEncoder.encode(pw));
+        String randomCode = RandomString.make(64);
+        client.setCodeVerification(randomCode);
+        System.out.println(client);
         return clientRepository.save(client);
+    }
+    @Override
+    public void sendVerificationEmail(Client client, String siteURL) throws MessagingException, UnsupportedEncodingException {
+        String subject = "Please verify your registration";
+        String senderName = "BioMag";
+        String mailContent = "<p>Dear "+ client.getFirstName() + ",</p>";
+        mailContent += "<p> Please click the link below to verify to your registration:<p>";
+        String verifyURL = siteURL + "/verify?code=" + client.getCodeVerification();
+        mailContent += "<a href=\"" + verifyURL + "\"> VERIFY </a>";
+        mailContent += "<p>Thank you<br>The BioMag Team</p>";
+
+        MimeMessage message = mailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message);
+
+        helper.setFrom("gesmed27@gmail.com", senderName);;
+        helper.setTo(client.getEmail());
+        helper.setSubject(subject);
+        helper.setText(mailContent, true);
+
+        mailSender.send(message);
+    }
+
+    @Override
+    public boolean verify(String codeverification) {
+        Client client = clientRepository.findByCodeVerification(codeverification);
+        if(client == null || client.isEnabled())
+            return false;
+        else{
+            clientRepository.enable(client.getIdClient());
+            return true;
+        }
     }
 
     @Override

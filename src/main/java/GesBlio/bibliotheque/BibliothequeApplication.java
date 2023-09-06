@@ -31,13 +31,13 @@ public class BibliothequeApplication {
 			roleService.add(new AppRoles(null, "ADMIN"));
 			roleService.add(new AppRoles(null, "SUPER_ADMIN"));
 
-			clientService.add(new Client(null, "Ulrich", "Bolan", 499662339, "ungapmen@gmail.com", "1234", "655335466", new ArrayList<>()));
-			clientService.add(new Client(null, "Ulrich", "Bolan", 489662339, "sa", "1234", "655335466", new ArrayList<>()));
+			//clientService.add(new Client(null, "Ulrich", "Bolan", 49966233949966233L, "ungapmen@gmail.com", "1234", "655335466",null, null, new ArrayList<>()));
+			clientService.add(new Client(null, "Llyori", "Bill", 489662339000000000L, "sa", "1234", "655335466",null,null, false, new ArrayList<>()));
 
 			clientService.addRoletoUser("sa", "SUPER_ADMIN");
 			clientService.addRoletoUser("sa", "ADMIN");
 			clientService.addRoletoUser("sa", "USER");
-			clientService.addRoletoUser("ungapmen@gmail.com", "USER");
+			//clientService.addRoletoUser("ungapmen@gmail.com", "USER");
 		};
 	}
 
