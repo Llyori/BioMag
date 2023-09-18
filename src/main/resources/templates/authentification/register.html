@@ -78,7 +78,7 @@
 								<div class="row top-margin">
 									<div class="col-sm-6">
 										<label>Number ID Cart <span class="text-danger">*</span></label>
-										<input type="number" th:field="*{numIdCart}" class="form-control">
+										<input type="number" maxlength="17" minlength="17" th:field="*{numIdCart}" class="form-control">
 										<div th:if="${param.erric}">
 											<p class="error-message" style="font-size: small; color: red;">Veuillez entrer une série de 17 chiffres.</p>
 										</div>
@@ -95,14 +95,14 @@
 								<div class="row top-margin">
 									<div class="col-sm-6">
 										<label>Password <span class="text-danger">*</span></label>
-										<input type="password" th:field="*{password}" class="form-control" id="password">
+										<input type="password" th:field="*{password}" minlength="6" class="form-control" id="password">
 										<div th:if="${param.error}">
 											<p class="error-message" style="font-size: small; color: red;">Veuillez entrer des mots de passe identiques</p>
 										</div>
 									</div>
 									<div class="col-sm-6">
 										<label>Confirm Password <span class="text-danger">*</span></label>
-										<input type="password" class="form-control" th:field="*{confPassword}" id="confirmPassword">
+										<input type="password" class="form-control" minlength="6" th:field="*{confPassword}" id="confirmPassword">
 									</div>
 								</div>
 

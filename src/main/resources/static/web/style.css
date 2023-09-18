@@ -20,6 +20,7 @@ a {
   max-width: 1100px;
   width: 100%;
   margin: 0 auto;
+  color: dark;
 }
 .nav,
 .nav_item {

@@ -16,6 +16,7 @@ import java.io.UnsupportedEncodingException;
 
 @Controller
 public class AuthController {
+    private static Client cl = new Client();
     private ClientService clientService;
     public AuthController(ClientService clientService) {
         this.clientService = clientService;
@@ -26,6 +27,12 @@ public class AuthController {
     }
     @GetMapping("/")
     public String index() { return "home-pages/index"; }
+    @GetMapping("/about")
+    public String aboutPage() { return "home-pages/about"; }
+    @GetMapping("/contact")
+    public String contactPage() { return "home-pages/contact"; }
+    @GetMapping("/index")
+    public String home() { return "index"; }
     @GetMapping("/register")
     public String register(Model model) {
         model.addAttribute("client", new Client());
@@ -33,13 +40,16 @@ public class AuthController {
     }
     @PostMapping("/register")
     public String saveClient(@ModelAttribute("client") Client client, HttpServletRequest request) throws MessagingException, UnsupportedEncodingException {
-        System.out.println("Endpoint ajout, "+client);
+        cl = client;
         if(client.getPassword().equals(client.getConfPassword()) && clientService.findByEmail(client.getEmail()) == null && clientService.findByPhoneNumber(client.getPhoneNumber()) == null && client.getNumIdCart().toString().length() == 17) {
             clientService.add(client);
             String siteURL = Utility.getSiteURL(request);
-            clientService.sendVerificationEmail(client, siteURL);
-            return "redirect:/login";
-        }else if(clientService.findByEmail(client.getEmail()) != null){
+            boolean b = clientService.sendVerificationEmail(client, siteURL);
+            if(!b)
+                return "errors/errorSmtp";
+            else
+                return "authentification/verify";
+        }else if(clientService.findByEmail(client.getEmail()) != null && clientService.findByEmail(client.getEmail()).isEnabled()){
             return "redirect:/register?errem=true";
         }else if(!(client.getPassword().equals(client.getConfPassword())))
             return "redirect:/register?error=true";
@@ -56,5 +66,11 @@ public class AuthController {
         String pageTitle = verified ? "Verification Success" : "Verfication Failed";
         model.addAttribute("pageTitle", pageTitle);
         return "authentification/" + (verified ? "verifySuccess" : "verifyFail");
+    }
+    @GetMapping("/resendCode")
+    public String resendCodeEmail(HttpServletRequest request) throws MessagingException, UnsupportedEncodingException {
+        String siteURL = Utility.getSiteURL(request);
+        clientService.sendVerificationEmail(cl, siteURL);
+        return "authentification/verify";
     }
 }

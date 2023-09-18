@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vérification par email</title>
+    <title>Erreur de connexion au serveur</title>
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
     <style>
     body {
@@ -21,12 +21,12 @@
     .text-center {
       text-align: center;
     }
-    .btn-resend {
+    .btn-back {
       color: #fff;
       background-color: #f60;
       border-color: #f60;
     }
-    .btn-resend:hover {
+    .btn-back:hover {
       background-color: #d24;
       border-color: #d24;
     }
@@ -34,10 +34,10 @@
 </head>
 <body>
 <div class="container">
-    <h2 class="text-center">La Vérification a échouée !</h2>
-    <p class="text-center">Cher utilisateur, veuillez vous enregistrer à nouveau.</p>
+    <h2 class="text-center">Oups, Erreur !!</h2>
+    <p class="text-center" th:text="${errorMessage}"></p>
     <div class="text-center">
-        <a class="btn btn-resend" th:href="@{/register}">Register</a>
+        <button class="btn btn-back">Retour</button>
     </div>
 </div>
 </body>

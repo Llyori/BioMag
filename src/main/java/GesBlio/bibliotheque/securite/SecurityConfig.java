@@ -39,23 +39,33 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 client.getAppRoles().forEach(roles -> {
                     authorities.add(new SimpleGrantedAuthority(roles.getRoleName()));
                 });
-                return new User(client.getEmail(), client.getPassword(), authorities);
+                if(client.isEnabled())
+                    return new User(client.getEmail(), client.getPassword(), authorities);
+                else
+                    return null;
+
             }
         });
     }
 
     @Override
+    public void configure(WebSecurity web) throws Exception {
+        web.ignoring()
+                .antMatchers("/other/");
+    }
+
+    @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable();
+        //http.csrf().disable();
         http.headers().frameOptions().disable();
         http.formLogin()
                 .loginPage("/login")
                 .usernameParameter("username")
-                .defaultSuccessUrl("/")
+                .defaultSuccessUrl("/index")
                 .failureUrl("/login?error=true")
                 .permitAll();
         http.authorizeHttpRequests()
-                .antMatchers("/api/**").authenticated()
+                .antMatchers("/api/**", "/index").authenticated()
                 .anyRequest().permitAll();
     }
 }

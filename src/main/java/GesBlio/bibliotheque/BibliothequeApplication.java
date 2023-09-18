@@ -7,7 +7,11 @@ import GesBlio.bibliotheque.services.RoleService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.server.ConfigurableWebServerFactory;
+import org.springframework.boot.web.server.ErrorPage;
+import org.springframework.boot.web.server.WebServerFactoryCustomizer;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -32,7 +36,7 @@ public class BibliothequeApplication {
 			roleService.add(new AppRoles(null, "SUPER_ADMIN"));
 
 			//clientService.add(new Client(null, "Ulrich", "Bolan", 49966233949966233L, "ungapmen@gmail.com", "1234", "655335466",null, null, new ArrayList<>()));
-			clientService.add(new Client(null, "Llyori", "Bill", 489662339000000000L, "sa", "1234", "655335466",null,null, false, new ArrayList<>()));
+			clientService.add(new Client(null, "Llyori", "Bill", 489662339000000000L, "sa", "1234", "655335466",null,null, true, new ArrayList<>()));
 
 			clientService.addRoletoUser("sa", "SUPER_ADMIN");
 			clientService.addRoletoUser("sa", "ADMIN");
@@ -41,4 +45,14 @@ public class BibliothequeApplication {
 		};
 	}
 
+	@Bean
+	public WebServerFactoryCustomizer<ConfigurableWebServerFactory> webServerFactoryCustomizer() {
+		return factory -> {
+			ErrorPage errorPage = new ErrorPage(HttpStatus.INTERNAL_SERVER_ERROR, "/error");
+			factory.addErrorPages(errorPage);
+		};
+	}
+
 }
+
+

@@ -15,6 +15,6 @@ public interface ClientService {
     public Client findByPhoneNumber(String phone);
     public void delete(Long id);
     void addRoletoUser(String username, String roleName);
-    void sendVerificationEmail(Client client, String siteURL) throws MessagingException, UnsupportedEncodingException;
+    boolean sendVerificationEmail(Client client, String siteURL) throws MessagingException, UnsupportedEncodingException;
     boolean verify(String codeverification);
 }

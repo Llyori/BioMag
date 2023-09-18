@@ -1,14 +1,44 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vérification par email</title>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+    <style>
+    body {
+      background-color: #f8f8f8;
+    }
+    .container {
+      max-width: 400px;
+      margin: 0 auto;
+      margin-top: 100px;
+      background-color: #fff;
+      border: 1px solid #ddd;
+      padding: 20px;
+      border-radius: 5px;
+    }
+    .text-center {
+      text-align: center;
+    }
+    .btn-resend {
+      color: #fff;
+      background-color: #f60;
+      border-color: #f60;
+    }
+    .btn-resend:hover {
+      background-color: #d24;
+      border-color: #d24;
+    }
+  </style>
 </head>
 <body>
-<div class="text-center">
-    <h2>Verification du compte Client</h2>
-    <h2>Vérification effectuée avec succès</h2>
-    <p><a th:href="@{/login}">Connectez-vous maintenant</a></p>
+<div class="container">
+    <h2 class="text-center">Vérification Effectuée Avec Succès !</h2>
+    <p class="text-center">Vous pouvez désormais vous connecter sur la plateforme.</p>
+    <div class="text-center">
+        <a class="btn btn-resend" th:href="@{/login}">Login</a>
+    </div>
 </div>
 </body>
 </html>

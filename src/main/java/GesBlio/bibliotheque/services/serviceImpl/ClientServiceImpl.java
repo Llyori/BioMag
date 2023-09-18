@@ -13,8 +13,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.mail.MessagingException;
+import javax.mail.SendFailedException;
 import javax.mail.internet.MimeMessage;
 import java.io.UnsupportedEncodingException;
+import java.net.UnknownHostException;
 import java.util.List;
 @Service
 @Transactional
@@ -42,11 +44,10 @@ public class ClientServiceImpl implements ClientService {
         client.setPassword(passwordEncoder.encode(pw));
         String randomCode = RandomString.make(64);
         client.setCodeVerification(randomCode);
-        System.out.println(client);
         return clientRepository.save(client);
     }
     @Override
-    public void sendVerificationEmail(Client client, String siteURL) throws MessagingException, UnsupportedEncodingException {
+    public boolean sendVerificationEmail(Client client, String siteURL) throws MessagingException, UnsupportedEncodingException {
         String subject = "Please verify your registration";
         String senderName = "BioMag";
         String mailContent = "<p>Dear "+ client.getFirstName() + ",</p>";
@@ -58,12 +59,13 @@ public class ClientServiceImpl implements ClientService {
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message);
 
-        helper.setFrom("gesmed27@gmail.com", senderName);;
-        helper.setTo(client.getEmail());
-        helper.setSubject(subject);
-        helper.setText(mailContent, true);
+            helper.setFrom("gesmed27@gmail.com", senderName);
+            helper.setTo(client.getEmail());
+            helper.setSubject(subject);
+            helper.setText(mailContent, true);
+            mailSender.send(message);
+            return true;
 
-        mailSender.send(message);
     }
 
     @Override

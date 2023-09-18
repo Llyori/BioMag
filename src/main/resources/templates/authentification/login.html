@@ -25,12 +25,11 @@
 				<div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
 					<div class="panel panel-default">
 						<div class="panel-body">
-							<p>Validez votre compte par email, en cliquant sur le lien</p>
 							<h3 class="thin text-center">Connectez vous à votre compte utilisateur.</h3>
 							<p class="text-center text-muted">Si vous n'en possédez pas un, veuillez <a th:href="@{/register}">Cliquer ici,</a> pour vous faire enregistrer. </p>
 							<hr>
 							<div th:if="${param.error}">
-								<p class="error-message">Erreur de connexion, veuillez entrer les identifiants à nouveau !</p>
+								<p class="error-message" style="font-size: small; color: red;">Erreur de connexion, veuillez entrer les identifiants à nouveau !</p>
 							</div>
 							<form method="post" th:action="@{/login}">
 								<div class="top-margin">
