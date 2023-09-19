@@ -5,11 +5,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Data @NoArgsConstructor @AllArgsConstructor @ToString
@@ -22,4 +20,9 @@ public class Livre {
     private Date datePublication;
     private double prixJournalier;
     private int nbreOccurence;
+    @ManyToOne
+    @JoinColumn(name = "categorie")
+    private Categorie categorie;
+    @OneToMany(mappedBy = "livre")
+    private List<Emprunt> emprunt;
 }

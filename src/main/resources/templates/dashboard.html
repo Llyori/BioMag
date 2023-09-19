@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bibliothèque Dashboard</title>
+
+</head>
+
+<body>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">Bibliothèque Dashboard</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+            <ul class="nav nav-sidebar">
+                <li class="active"><a href="#">Accueil</a></li>
+                <li><a href="#">Livres</a></li>
+                <li><a href="#">Emprunts</a></li>
+                <li><a href="#">Utilisateurs</a></li>
+            </ul>
+        </div>
+        <div class="col-sm-9 col-md-10 main">
+            <h1 class="page-header">Dashboard</h1>
+
+            <div class="row placeholders">
+                <div class="col-xs-6 col-sm-3 placeholder">
+                    <h4>Livres</h4>
+                    <span class="text-muted">Total : 100</span>
+                </div>
+                <div class="col-xs-6 col-sm-3 placeholder">
+                    <h4>Emprunts</h4>
+                    <span class="text-muted">Total : 50</span>
+                </div>
+                <div class="col-xs-6 col-sm-3 placeholder">
+                    <h4>Utilisateurs</h4>
+                    <span class="text-muted">Total : 200</span>
+                </div>
+            </div>
+
+            <h2 class="sub-header">Livres</h2>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Titre</th>
+                        <th>Auteur</th>
+                        <th>Genre</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>1984</td>
+                        <td>George Orwell</td>
+                        <td>Dystopie</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Le Petit Prince</td>
+                        <td>Antoine de Saint-Exupéry</td>
+                        <td>Littérature pour enfants</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+
+</html>

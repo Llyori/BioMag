@@ -10,6 +10,7 @@ import org.springframework.lang.Nullable;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Data @AllArgsConstructor @NoArgsConstructor @ToString
@@ -33,4 +34,22 @@ public class Client {
     @ManyToMany(fetch = FetchType.EAGER) // A chaque fois que je charge un user, j'ai ses roles donc on utilise eager
     @Nullable
     private Collection<AppRoles> appRoles = new ArrayList<>();
+    @OneToMany(mappedBy = "client")
+    private List<Emprunt> emprunt;
+    @OneToMany(mappedBy = "client")
+    private List<Souscription> souscription;
+
+    public Client(Long idClient, String firstName, String secondName, Long numIdCart, String email, String password, String phoneNumber, String confPassword, String codeVerification, boolean enabled, @Nullable Collection<AppRoles> appRoles) {
+        this.idClient = idClient;
+        this.firstName = firstName;
+        this.secondName = secondName;
+        this.numIdCart = numIdCart;
+        this.email = email;
+        this.password = password;
+        this.phoneNumber = phoneNumber;
+        this.confPassword = confPassword;
+        this.codeVerification = codeVerification;
+        this.enabled = enabled;
+        this.appRoles = appRoles;
+    }
 }
