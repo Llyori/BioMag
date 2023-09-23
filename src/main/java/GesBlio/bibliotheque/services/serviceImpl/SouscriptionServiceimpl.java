@@ -1,6 +1,7 @@
 package GesBlio.bibliotheque.services.serviceImpl;
 
 import GesBlio.bibliotheque.dao.SouscriptionRepository;
+import GesBlio.bibliotheque.entities.Client;
 import GesBlio.bibliotheque.entities.Souscription;
 import GesBlio.bibliotheque.services.SouscriptionService;
 import org.springframework.stereotype.Service;
@@ -39,6 +40,16 @@ public class SouscriptionServiceimpl implements SouscriptionService {
 
     @Override
     public void delete(Long idSouscription) {
-        souscriptionRepository.deleteById(idSouscription);
+        souscriptionRepository.suspendre(idSouscription);
+    }
+
+    @Override
+    public void activerSouscription(Long idSouscription) {
+        souscriptionRepository.activer(idSouscription);
+    }
+
+    @Override
+    public List<Souscription> findAllByClient(Client client) {
+        return souscriptionRepository.findAllByClient(client);
     }
 }

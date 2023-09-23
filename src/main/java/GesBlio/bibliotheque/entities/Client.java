@@ -1,6 +1,7 @@
 package GesBlio.bibliotheque.entities;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,10 +21,13 @@ public class Client {
     private Long idClient;
     private String firstName;
     private String secondName;
+    @NotNull
     private Long numIdCart;
+    @NotNull
     private String email;
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
+    @NotNull
     private String phoneNumber;
     @Transient
     private String confPassword;
@@ -38,6 +42,7 @@ public class Client {
     private List<Emprunt> emprunt;
     @OneToMany(mappedBy = "client")
     private List<Souscription> souscription;
+    private boolean status;
 
     public Client(Long idClient, String firstName, String secondName, Long numIdCart, String email, String password, String phoneNumber, String confPassword, String codeVerification, boolean enabled, @Nullable Collection<AppRoles> appRoles) {
         this.idClient = idClient;

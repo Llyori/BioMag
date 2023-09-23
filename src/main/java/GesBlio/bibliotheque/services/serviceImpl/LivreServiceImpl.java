@@ -39,6 +39,16 @@ public class LivreServiceImpl implements LivreService {
 
     @Override
     public void delete(Long idLivre) {
-        livreRepository.deleteById(idLivre);
+        livreRepository.move(idLivre);
+    }
+
+    @Override
+    public void activerLivre(Long idLivre) {
+        livreRepository.activer(idLivre);
+    }
+
+    @Override
+    public void desactiverLivre(Long idLivre) {
+        livreRepository.desactiver(idLivre);
     }
 }

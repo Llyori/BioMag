@@ -18,4 +18,6 @@ public class Categorie {
     private String nomCategorie;
     @OneToMany(mappedBy = "categorie")
     private List<Livre> livres;
+    @Column(columnDefinition = "boolean default true")
+    private boolean statut;
 }

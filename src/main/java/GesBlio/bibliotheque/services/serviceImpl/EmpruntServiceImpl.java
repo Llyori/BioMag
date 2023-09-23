@@ -40,4 +40,9 @@ public class EmpruntServiceImpl implements EmpruntService {
     public void delete(Long idEmprunt) {
         empruntRepository.deleteById(idEmprunt);
     }
+
+    @Override
+    public void updateStatut(Long idEmprunt) {
+        empruntRepository.updateStatut(idEmprunt);
+    }
 }

@@ -10,4 +10,6 @@ public interface LivreService {
     public Livre update(Livre livre);
     public List<Livre> livres();
     public void delete(Long idLivre);
+    public void activerLivre(Long idLivre);
+    public void desactiverLivre(Long idLivre);
 }

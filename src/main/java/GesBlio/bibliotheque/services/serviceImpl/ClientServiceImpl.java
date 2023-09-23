@@ -44,6 +44,7 @@ public class ClientServiceImpl implements ClientService {
         client.setPassword(passwordEncoder.encode(pw));
         String randomCode = RandomString.make(64);
         client.setCodeVerification(randomCode);
+        client.setStatus(true);
         return clientRepository.save(client);
     }
     @Override
@@ -80,6 +81,13 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
+    public Client updateClient(Client client) {
+        Client client1 = clientRepository.findById(client.getIdClient()).get();
+        client1 = client;
+        return clientRepository.save(client1);
+    }
+
+    @Override
     public Client Update(Client client) {
         Client client1 = clientRepository.findById(client.getIdClient()).get();
         client1 = client;
@@ -102,8 +110,13 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
+    public Client findByFirstName(String name) {
+        return clientRepository.findByFirstName(name);
+    }
+
+    @Override
     public void delete(Long id) {
-        clientRepository.deleteById(id);
+        clientRepository.desable(id);
     }
 
     @Override

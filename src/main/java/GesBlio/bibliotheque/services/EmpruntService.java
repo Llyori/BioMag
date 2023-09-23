@@ -10,4 +10,5 @@ public interface EmpruntService {
     public Emprunt update(Emprunt emprunt);
     public List<Emprunt> emprunts();
     public void delete(Long idEmprunt);
+    public void updateStatut(Long idEmprunt);
 }

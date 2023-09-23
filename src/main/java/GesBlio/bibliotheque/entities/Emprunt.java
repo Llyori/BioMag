@@ -16,11 +16,14 @@ public class Emprunt {
     private Long idEmprunt;
     private int nbreJour;
     private Date dateRemise;
-    private String statut;
     @ManyToOne
     @JoinColumn(name = "client")
     private Client client;
     @ManyToOne
     @JoinColumn(name = "livre")
     private Livre livre;
+    @Column(columnDefinition = "boolean default true")
+    private boolean enabled;
+    @Column(columnDefinition = "boolean default false")
+    private boolean statut;
 }

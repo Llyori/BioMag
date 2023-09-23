@@ -11,5 +11,9 @@ public interface ClientRepository extends JpaRepository<Client, Long> {
     @Query("UPDATE Client c SET c.enabled = true WHERE c.id = ?1")
     @Modifying
     public void enable(Long id);
+    @Query("UPDATE Client c SET c.enabled = false WHERE c.id = ?1")
+    @Modifying
+    public void desable(Long id);
     public Client findByCodeVerification(String codeVerification);
+    public Client findByFirstName(String firstName);
 }
