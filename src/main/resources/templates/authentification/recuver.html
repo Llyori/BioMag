@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vérification par email</title>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+    <style>
+    body {
+      background-color: #f8f8f8;
+    }
+    .container {
+      max-width: 400px;
+      margin: 0 auto;
+      margin-top: 100px;
+      background-color: #fff;
+      border: 1px solid #ddd;
+      padding: 20px;
+      border-radius: 5px;
+    }
+    .text-center {
+      text-align: center;
+    }
+    .btn-resend {
+      color: #fff;
+      background-color: #f60;
+      border-color: #f60;
+    }
+    .btn-resend:hover {
+      background-color: #d24;
+      border-color: #d24;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+    <h2 class="text-center">Modification du mot de passe</h2>
+    <p class="text-center">Un lien vous a été envoyé par email pour la recuperation de votre mot de passe. Veuillez vérifier votre boîte de réception.</p>
+    <div class="text-center">
+        <a class="btn btn-resend" th:href="@{/resendRecuverCode}">Renvoyer le mail</a>
+    </div>
+</div>
+</body>
+</html>

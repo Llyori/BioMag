@@ -14,10 +14,14 @@ public interface ClientService {
     public Client findByEmail(String email);
     public Client findByPhoneNumber(String phone);
     public Client findByFirstName(String name);
+    public Client findByCodeVerification(String codeVerification);
     public void delete(Long id);
     void addRoletoUser(String username, String roleName);
     boolean sendVerificationEmail(Client client, String siteURL) throws MessagingException, UnsupportedEncodingException;
+
+    boolean sendPasswordRecuverEmail(Client client, String siteURL) throws MessagingException, UnsupportedEncodingException;
+
     boolean verify(String codeverification);
     Client updateClient(Client client);
-
+    boolean confirm(String codeverification);
 }

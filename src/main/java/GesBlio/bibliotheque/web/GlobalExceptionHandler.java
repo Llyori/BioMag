@@ -25,7 +25,7 @@ public class GlobalExceptionHandler implements ErrorController {
 
             if (statusCode == HttpStatus.NOT_FOUND.value()) {
                 message = "La ressource demandée est introuvable.";
-            } else if (statusCode == HttpStatus.INTERNAL_SERVER_ERROR.value())
+            } else if (statusCode == HttpStatus.INTERNAL_SERVER_ERROR.value() || statusCode == HttpStatus.METHOD_NOT_ALLOWED.value())
                 message = "Une erreur interne du serveur s'est produite.";
             else if(RequestDispatcher.ERROR_MESSAGE.equals("java.net.UnknownHostException")){
                 message = "Impossible d'atteindre l'hote, veuillez ressayer plus tard.";

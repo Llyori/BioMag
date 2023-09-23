@@ -5,6 +5,7 @@ import GesBlio.bibliotheque.entities.Client;
 import GesBlio.bibliotheque.repositories.AppRolesRepository;
 import GesBlio.bibliotheque.repositories.ClientRepository;
 import GesBlio.bibliotheque.services.ClientService;
+import com.sun.mail.util.MailConnectException;
 import net.bytebuddy.utility.RandomString;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -13,7 +14,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.mail.MessagingException;
-import javax.mail.SendFailedException;
 import javax.mail.internet.MimeMessage;
 import java.io.UnsupportedEncodingException;
 import java.net.UnknownHostException;
@@ -48,17 +48,18 @@ public class ClientServiceImpl implements ClientService {
         return clientRepository.save(client);
     }
     @Override
-    public boolean sendVerificationEmail(Client client, String siteURL) throws MessagingException, UnsupportedEncodingException {
-        String subject = "Please verify your registration";
-        String senderName = "BioMag";
-        String mailContent = "<p>Dear "+ client.getFirstName() + ",</p>";
-        mailContent += "<p> Please click the link below to verify to your registration:<p>";
-        String verifyURL = siteURL + "/verify?code=" + client.getCodeVerification();
-        mailContent += "<a href=\"" + verifyURL + "\"> VERIFY </a>";
-        mailContent += "<p>Thank you<br>The BioMag Team</p>";
+    public boolean sendVerificationEmail(Client client, String siteURL){
+        try{
+            String subject = "Please verify your registration";
+            String senderName = "BioMag";
+            String mailContent = "<p>Dear " + client.getFirstName() + ",</p>";
+            mailContent += "<p> Please click the link below to verify to your registration:<p>";
+            String verifyURL = siteURL + "/verify?code=" + client.getCodeVerification();
+            mailContent += "<a href=\"" + verifyURL + "\"> VERIFY </a>";
+            mailContent += "<p>Thank you<br>The BioMag Team</p>";
 
-        MimeMessage message = mailSender.createMimeMessage();
-        MimeMessageHelper helper = new MimeMessageHelper(message);
+            MimeMessage message = mailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(message);
 
             helper.setFrom("gesmed27@gmail.com", senderName);
             helper.setTo(client.getEmail());
@@ -66,6 +67,43 @@ public class ClientServiceImpl implements ClientService {
             helper.setText(mailContent, true);
             mailSender.send(message);
             return true;
+        }
+        catch(MailConnectException m ){
+            return false;
+        } catch(MessagingException m ){
+            return false;
+        } catch(UnsupportedEncodingException m ){
+            return false;
+        }
+    }
+
+    @Override
+    public boolean sendPasswordRecuverEmail(Client client, String siteURL) {
+        try{
+            String subject = "Password Recuver";
+            String senderName = "BioMag";
+            String mailContent = "<p>Dear " + client.getFirstName() + ",</p>";
+            mailContent += "<p> you are about to reset your password please follow the link above:<p>";
+            String verifyURL = siteURL + "/recuver?code=" + client.getCodeVerification();
+            mailContent += "<a href=\"" + verifyURL + "\"> Reset Now </a>";
+            mailContent += "<p>Thank you<br>The BioMag Team</p>";
+
+            MimeMessage message = mailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(message);
+
+            helper.setFrom("gesmed27@gmail.com", senderName);
+            helper.setTo(client.getEmail());
+            helper.setSubject(subject);
+            helper.setText(mailContent, true);
+            mailSender.send(message);
+            return true;
+        } catch(MailConnectException m ){
+            return false;
+        } catch(MessagingException m ){
+            return false;
+        } catch(UnsupportedEncodingException m ){
+            return false;
+        }
 
     }
 
@@ -85,6 +123,14 @@ public class ClientServiceImpl implements ClientService {
         Client client1 = clientRepository.findById(client.getIdClient()).get();
         client1 = client;
         return clientRepository.save(client1);
+    }
+    public boolean confirm(String codeverification) {
+        Client client = clientRepository.findByCodeVerification(codeverification);
+        if(client == null)
+            return false;
+        else{
+            return true;
+        }
     }
 
     @Override
@@ -112,6 +158,10 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public Client findByFirstName(String name) {
         return clientRepository.findByFirstName(name);
+    }
+
+    public Client findByCodeVerification(String codeVerification) {
+        return clientRepository.findByCodeVerification(codeVerification);
     }
 
     @Override
