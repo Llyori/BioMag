@@ -97,7 +97,6 @@ public class AuthController {
     //
     @GetMapping("/recuver")
     public String recuverPassword(@Param("code") String code, Model model, RedirectAttributes ra){
-        System.out.println("code: "+code);
         boolean verified = clientService.confirm(code);
         //recuperation si code correct
         if(verified){

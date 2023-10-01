@@ -28,7 +28,7 @@ public class BibliothequeApplication {
 		return new BCryptPasswordEncoder();
 	}
 
-	@Bean
+	//@Bean
 	CommandLineRunner start (ClientService clientService, RoleService roleService){
 		return args -> {
 			roleService.add(new AppRoles(null, "USER"));
