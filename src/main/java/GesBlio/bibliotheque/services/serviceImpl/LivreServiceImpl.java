@@ -3,6 +3,9 @@ package GesBlio.bibliotheque.services.serviceImpl;
 import GesBlio.bibliotheque.dao.LivreRepository;
 import GesBlio.bibliotheque.entities.Livre;
 import GesBlio.bibliotheque.services.LivreService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -33,8 +36,9 @@ public class LivreServiceImpl implements LivreService {
     }
 
     @Override
-    public List<Livre> livres() {
-        return livreRepository.findAll();
+    public Page<Livre> livres(int pageNum, int pageSize) {
+        Pageable pageable = PageRequest.of(pageNum, pageSize);
+        return livreRepository.findAll(pageable);
     }
 
     @Override

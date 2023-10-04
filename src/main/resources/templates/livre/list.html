@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="zxx" class="js">
+
+<div th:include="/modal/header2.html"></div>
+
+<body class="nk-body ui-rounder npc-default has-sidebar ">
+<div class="nk-app-root">
+    <div th:include="/modal/side-bar.html"></div>
+    <!-- main @s -->
+    <div class="nk-main ">
+        <!-- wrap @s -->
+        <div class="nk-wrap ">
+            <!-- main header @s -->
+            <div th:include="/modal/header-bar.html"></div>&nbsp;
+            <!-- main header @e -->
+            <!-- content @s -->
+            <div class="nk-content ">
+                <div class="container-fluid">
+                    <div class="nk-content-inner">
+                        <div class="nk-content-body">
+                            <div class="nk-block-head nk-block-head-sm">
+                                <div class="nk-block-between g-3">
+                                    <div class="nk-block-head-content"><br><br>&nbsp; &nbsp;
+                                        <h3 class="nk-block-title page-title">Livres</h3>
+                                        <div class="nk-block-des text-soft d-none d-md-inline-flex">
+                                            <ul class="breadcrumb breadcrumb-pipe">
+                                                <li class="breadcrumb-item active"><a href="#">Total (<span th:text="${livres.totalElements}"></span>)</a></li>
+                                                <li class="breadcrumb-item "><a href="#">Visités (10)</a></li>
+                                                <li class="breadcrumb-item"><a href="#">Empruntés (8)</a></li>
+                                                <li class="breadcrumb-item "><a href="#">Rendus (4)</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="nk-block-head-content">
+                                        <a href="#" data-toggle="modal" data-target="#addAppointment" class="btn btn-icon btn-primary d-md-none"><em class="icon ni ni-plus"></em></a>
+                                        <a href="#" data-toggle="modal" data-target="#addAppointment" class="btn btn-primary d-none d-md-inline-flex"><em class="icon ni ni-plus"></em><span>Nouveau</span></a>
+                                    </div><!-- .nk-block-head-content -->
+                                </div>
+                            </div><!-- .nk-block-head -->
+                            <div class="nk-block">
+                                <div class="card card-bordered card-stretch">
+                                    <div class="card-inner-group">
+                                        <div class="card-inner position-relative card-tools-toggle">
+                                            <div class="card-title-group">
+                                                <div class="card-tools">
+                                                    <div class="form-inline flex-nowrap gx-3">
+                                                        <div class="form-wrap w-150px">
+                                                            <select class="form-select form-select-sm" data-search="off" data-placeholder="Bulk Action">
+                                                                <option value="">Bulk Action</option>
+                                                                <option value="email">Send Email</option>
+                                                                <option value="change">Change Doctor</option>
+                                                                <option value="depart">Change Depart</option>
+                                                                <option value="delete">Delete</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="btn-wrap">
+                                                            <span class="d-none d-md-block"><button class="btn btn-dim btn-outline-light disabled">Apply</button></span>
+                                                            <span class="d-md-none"><button class="btn btn-dim btn-outline-light btn-icon disabled"><em class="icon ni ni-arrow-right"></em></button></span>
+                                                        </div>
+                                                    </div><!-- .form-inline -->
+                                                </div><!-- .card-tools -->
+                                                <div class="card-tools mr-n1">
+                                                    <ul class="btn-toolbar gx-1">
+                                                        <li>
+                                                            <a href="#" class="btn btn-icon search-toggle toggle-search" data-target="search"><em class="icon ni ni-search"></em></a>
+                                                        </li><!-- li -->
+                                                        <li class="btn-toolbar-sep"></li><!-- li -->
+                                                        <li>
+                                                            <div class="toggle-wrap">
+                                                                <a href="#" class="btn btn-icon btn-trigger toggle" data-target="cardTools"><em class="icon ni ni-menu-right"></em></a>
+                                                                <div class="toggle-content" data-content="cardTools">
+                                                                    <ul class="btn-toolbar gx-1">
+                                                                        <li class="toggle-close">
+                                                                            <a href="#" class="btn btn-icon btn-trigger toggle" data-target="cardTools"><em class="icon ni ni-arrow-left"></em></a>
+                                                                        </li><!-- li -->
+                                                                        <li>
+                                                                            <div class="dropdown">
+                                                                                <a href="#" class="btn btn-trigger btn-icon dropdown-toggle" data-toggle="dropdown">
+                                                                                    <div class="dot dot-primary"></div>
+                                                                                    <em class="icon ni ni-filter-alt"></em>
+                                                                                </a>
+                                                                                <div class="filter-wg dropdown-menu dropdown-menu-xl dropdown-menu-right">
+                                                                                    <div class="dropdown-head">
+                                                                                        <span class="sub-title dropdown-title">Filtre</span>
+                                                                                        <div class="dropdown">
+                                                                                            <a href="#" class="btn btn-sm btn-icon">
+                                                                                                <em class="icon ni ni-more-h"></em>
+                                                                                            </a>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="dropdown-body dropdown-body-rg">
+                                                                                        <div class="row gx-6 gy-3">
+                                                                                            <div class="col-6">
+                                                                                                <div class="form-group">
+                                                                                                    <label class="overline-title overline-title-alt">Department</label>
+                                                                                                    <select class="form-select form-select-sm">
+                                                                                                        <option value="any">Any Type</option>
+                                                                                                        <option value="medicine">Medicine</option>
+                                                                                                        <option value="gastroenterology">Gastroenterology</option>
+                                                                                                        <option value="cardiology">Cardiology</option>
+                                                                                                        <option value="orthopaedics">Orthopaedics</option>
+                                                                                                        <option value="neurology">Neurology</option>
+                                                                                                        <option value="urology">Urology</option>
+                                                                                                    </select>
+                                                                                                </div>
+                                                                                            </div><!-- .col -->
+                                                                                            <div class="col-6">
+                                                                                                <div class="form-group">
+                                                                                                    <label class="overline-title overline-title-alt">Status</label>
+                                                                                                    <select class="form-select form-select-sm">
+                                                                                                        <option value="any">Any Status</option>
+                                                                                                        <option value="visited">Visited</option>
+                                                                                                        <option value="canceled">Canceled</option>
+                                                                                                        <option value="waiting">Waiting</option>
+                                                                                                        <option value="pending">Pending</option>
+                                                                                                        <option value="deleted">Deleted</option>
+                                                                                                    </select>
+                                                                                                </div>
+                                                                                            </div><!-- .col -->
+                                                                                            <div class="col-6">
+                                                                                                <div class="form-group">
+                                                                                                    <label class="overline-title overline-title-alt">Doctor</label>
+                                                                                                    <div class="form-control-wrap">
+                                                                                                        <select class="form-select" data-placeholder="Select Doctor">
+                                                                                                            <option value="">Select Doctor</option>
+                                                                                                            <option value="option_select_consulant">Joe Larson</option>
+                                                                                                            <option value="option_select_consulant">Patrick Newman</option>
+                                                                                                            <option value="option_select_consulant">Newman Freeman</option>
+                                                                                                            <option value="option_select_consulant">Jane Montgomery</option>
+                                                                                                            <option value="option_select_consulant">Emma Walker</option>
+                                                                                                        </select>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div><!-- .col -->
+                                                                                            <div class="col-6">
+                                                                                                <div class="form-group">
+                                                                                                    <label class="overline-title overline-title-alt">Date</label>
+                                                                                                    <div class="form-control-wrap">
+                                                                                                        <div class="form-icon form-icon-right">
+                                                                                                            <em class="icon ni ni-calendar"></em>
+                                                                                                        </div>
+                                                                                                        <input type="text" class="form-control date-picker" data-date-format="dd-mm-yyyy" placeholder="dd-mm-yyyy">
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div><!-- .col -->
+                                                                                            <div class="col-12">
+                                                                                                <div class="form-group">
+                                                                                                    <button type="button" class="btn btn-secondary">Filter</button>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="dropdown-foot between">
+                                                                                        <a class="clickable" href="#">Reset Filter</a>
+                                                                                        <a href="#">Save Filter</a>
+                                                                                    </div>
+                                                                                </div><!-- .filter-wg -->
+                                                                            </div><!-- .dropdown -->
+                                                                        </li><!-- li -->
+                                                                        <li>
+                                                                            <div class="dropdown">
+                                                                                <a href="#" class="btn btn-trigger btn-icon dropdown-toggle" data-toggle="dropdown">
+                                                                                    <em class="icon ni ni-setting"></em>
+                                                                                </a>
+                                                                                <div class="dropdown-menu dropdown-menu-xs dropdown-menu-right">
+                                                                                    <ul class="link-check">
+                                                                                        <li><span>Show</span></li>
+                                                                                        <li class="active"><a href="#">10</a></li>
+                                                                                        <li><a href="#">20</a></li>
+                                                                                        <li><a href="#">50</a></li>
+                                                                                    </ul>
+                                                                                    <ul class="link-check">
+                                                                                        <li><span>Order</span></li>
+                                                                                        <li class="active"><a href="#">DESC</a></li>
+                                                                                        <li><a href="#">ASC</a></li>
+                                                                                    </ul>
+                                                                                </div>
+                                                                            </div><!-- .dropdown -->
+                                                                        </li><!-- li -->
+                                                                    </ul><!-- .btn-toolbar -->
+                                                                </div><!-- .toggle-content -->
+                                                            </div><!-- .toggle-wrap -->
+                                                        </li><!-- li -->
+                                                    </ul><!-- .btn-toolbar -->
+                                                </div><!-- .card-tools -->
+                                            </div><!-- .card-title-group -->
+                                            <div class="card-search search-wrap" data-search="search">
+                                                <div class="card-body">
+                                                    <div class="search-content">
+                                                        <a href="#" class="search-back btn btn-icon toggle-search" data-target="search"><em class="icon ni ni-arrow-left"></em></a>
+                                                        <input type="text" class="form-control border-transparent form-focus-none" placeholder="Search by patient name or id">
+                                                        <button class="search-submit btn btn-icon"><em class="icon ni ni-search"></em></button>
+                                                    </div>
+                                                </div>
+                                            </div><!-- .card-search -->
+                                        </div><!-- .card-inner -->
+                                        <div class="card-inner p-0">
+                                            <div class="nk-tb-list nk-tb-ulist">
+                                                <div class="nk-tb-item nk-tb-head">
+                                                    <div class="nk-tb-col"><span>Livre</span></div>
+                                                    <div class="nk-tb-col tb-col-mb"><span>Auteur</span></div>
+                                                    <div class="nk-tb-col tb-col-md"><span>Categorie</span></div>
+                                                    <div class="nk-tb-col tb-col-lg"><span>Prix / Jour</span></div>
+                                                    <div class="nk-tb-col tb-col-xxl"><span>Occurences</span></div>
+                                                    <div class="nk-tb-col tb-col-lg"><span>Date Publication</span></div>
+                                                    <div class="nk-tb-col tb-col-md"><span>Status</span></div>
+                                                    <div class="nk-tb-col tb-col-xxl"><span>Auteur</span></div>
+                                                    <div class="nk-tb-col nk-tb-col-tools">&nbsp;</div>
+                                                </div><!-- .nk-tb-item -->
+
+                                                <div class="nk-tb-item" th:each="livre : ${livres}">
+                                                    <div class="nk-tb-col">
+                                                        <div class="user-card">
+                                                            <div class="user-avatar sm bg-orange-dim">
+                                                                <span>A</span>
+                                                            </div>
+                                                            <div class="user-info">
+                                                                <span class="tb-lead" th:text="${livre.nomLivre}">{livre.nomLivre}<span class="dot dot-gray d-md-none ml-1"></span></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="nk-tb-col tb-col-mb">
+                                                        <span class="tb-lead-sub" th:text="${livre.auteur}">{livre.auteur}</span>
+                                                    </div>
+                                                    <div class="nk-tb-col tb-col-md">
+                                                        <div class="user-card">
+                                                            <div class="user-info">
+                                                                <span class="tb-lead" th:text="${livre.categorie.nomCategorie}">{livre.categorie.nomCategorie}</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="nk-tb-col tb-col-lg">
+                                                        <span th:text="${livre.prixJournalier}">{livre.prixJournalier}</span>
+                                                    </div>
+                                                    <div class="nk-tb-col tb-col-xxl">
+                                                        <span th:text="${livre.nbreOccurence}">{livre.nbreOccurence}</span>
+                                                    </div>
+                                                    <div class="nk-tb-col tb-col-lg">
+                                                        <span class="tb-date" th:text="${livre.datePublication}">{livre.datePublication}</span>
+                                                    </div>
+                                                    <div class="nk-tb-col tb-col-md">
+                                                        <span class="tb-status text-grey">Visited</span>
+                                                        <span data-toggle="tooltip" title="Visited at 11 Fab, 2021 01:02 PM" data-placement="top"><em class="icon ni ni-info"></em></span>
+                                                    </div>
+                                                    <div class="nk-tb-col tb-col-xxl">
+                                                        <span>Ernesto Vargas</span>
+                                                    </div>
+                                                    <div class="nk-tb-col nk-tb-col-tools">
+                                                        <ul class="nk-tb-actions gx-1">
+                                                            <li class="nk-tb-action-hidden">
+                                                                <a href="#" class="btn btn-trigger btn-icon" data-toggle="tooltip" data-placement="top" title="Quick View">
+                                                                    <em class="icon ni ni-eye-fill"></em>
+                                                                </a>
+                                                            </li>
+                                                            <li>
+                                                                <div class="drodown">
+                                                                    <a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
+                                                                    <div class="dropdown-menu dropdown-menu-right">
+                                                                        <ul class="link-list-opt no-bdr">
+                                                                            <li><a href="#" data-toggle="modal" data-target="#editAppointment"><em class="icon ni ni-edit"></em><span>Edit</span></a></li>
+                                                                            <li><a href="#"><em class="icon ni ni-trash"></em><span>Delete</span></a></li>
+                                                                        </ul>
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div><!-- .nk-tb-item -->
+
+
+                                            </div>
+                                        </div><!-- .card-inner -->
+                                        <div class="card-inner">
+                                            <div class="nk-block-between-md g-3">
+                                                <div class="g">
+                                                    <ul class="pagination justify-content-center justify-content-md-start">
+                                                        <li class="page-item" th:class="${livres.isFirst} ? '' : 'disabled'"><a class="page-link" th:href="@{/livre/list(page=${livres.number - 1})}">Prev</a></li>
+<!--                                                        <li class="page-item"><a class="page-link">1</a></li>-->
+<!--                                                        <li class="page-item"><a class="page-link">2</a></li>-->
+
+<!--                                                        <li th:each="pageNum : ${#numbers.sequence(livres.number, livres.number + 4)}" th:class="${pageNum == livres.number} ? 'active' : ''">-->
+<!--                                                            <a th:href="@{/livre/list(page=${pageNum})}" th:text="${pageNum}">Page {pageNum}</a>-->
+<!--                                                        </li>-->
+
+                                                        <li class="page-item" th:class="${livres.isLast} ? 'disabled' : ''">
+                                                            <a class="page-link" th:href="@{/livre/list(page=${livres.number + 1})}">Next</a>
+                                                        </li>
+
+                                                        <li class="page-item" th:class="${livres.isLast} ? 'disabled' : ''">
+                                                            <a class="page-link" th:href="@{/livre/list(page=${livres.totalPages - 1})}">Last Page</a>
+                                                        </li>
+                                                    </ul><!-- .pagination -->
+                                                </div>
+                                                <div class="g">
+                                                    <div class="pagination-goto d-flex justify-content-center justify-content-md-start gx-3">
+                                                        <div>Page</div>
+                                                        <div>
+                                                            <select class="form-select form-select-sm" data-search="on" data-dropdown="xs center">
+                                                                <option value="page-1">1</option>
+                                                                <option value="page-2">2</option>
+                                                            </select>
+                                                        </div>
+                                                        <div>OF 102</div>
+                                                    </div>
+                                                </div><!-- .pagination-goto -->
+                                            </div><!-- .nk-block-between -->
+                                        </div><!-- .card-inner -->
+                                    </div><!-- .card-inner-group -->
+                                </div><!-- .card -->
+                            </div><!-- .nk-block -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- content @e -->
+        </div>
+        <!-- wrap @e -->
+    </div>
+    <!-- main @e -->
+</div>
+<!-- app-root @e -->
+<!-- Add Appoinment-->
+<div class="modal fade" tabindex="-1" role="dialog" id="addAppointment">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <a href="#" class="close" data-dismiss="modal"><em class="icon ni ni-cross-sm"></em></a>
+            <div class="modal-body modal-body-md">
+                <h5 class="modal-title">Nouveau Livre</h5><br>
+                <form th:method="@{post}" th:action="@{/livre/add}" th:object="${livre}">
+                    <div class="row g-gs">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label" for="name">Nom</label>
+                                <div class="form-control-wrap">
+                                    <input type="text" class="form-control" id="name" placeholder="Nom Livre" th:field="*{nomLivre}">
+                                </div>
+                            </div>
+                        </div><!-- .col -->
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label" for="mobile">Auteur</label>
+                                <div class="form-control-wrap">
+                                    <input type="text" class="form-control" id="mobile" placeholder="Auteur" th:field="*{auteur}">
+                                </div>
+                            </div>
+                        </div><!-- .col -->
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label">Date Publication</label>
+                                <div class="form-control-wrap">
+                                    <div class="form-icon form-icon-right">
+                                        <em class="icon ni ni-calendar"></em>
+                                    </div>
+                                    <input type="text" class="form-control date-picker" data-date-format="dd-mm-yyyy" placeholder="dd-mm-yyyy" th:field="*{datePublication}">
+                                </div>
+                            </div>
+                        </div><!-- .col -->
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label" for="serial">Prix Journalier D'Emprunt</label>
+                                <div class="form-control-wrap">
+                                    <input type="number" class="form-control" id="serial" th:field="*{prixJournalier}">
+                                </div>
+                            </div>
+                        </div><!-- .col -->
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label" for="serial">Occurence</label>
+                                <div class="form-control-wrap">
+                                    <input type="number" class="form-control" id="serial" th:field="*{nbreOccurence}">
+                                </div>
+                            </div>
+                        </div><!-- .col -->
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label">Categorie</label>
+                                <div class="form-control-wrap">
+                                    <select class="form-select" data-placeholder="Selectionne une Catégorie" th:field="*{categorie}">
+                                        <option value="">Select</option>
+                                        <option th:each="categorie : ${categories}" th:value="${categorie.idCategorie}" th:text="${categorie.nomCategorie}"></option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label">Mode</label>
+                                <div class="form-control-wrap">
+                                    <select class="form-select" th:field="*{actif}">
+                                        <option value="false">Lecture</option>
+                                        <option value="true">Emprunt</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <ul class="align-center flex-wrap flex-sm-nowrap gx-4 gy-2">
+                                <li>
+                                    <button class="btn btn-primary" type="submit">Enregistrer</button>
+                                </li>
+                                <li>
+                                    <button href="#" class="link link-light">Cancel</button>
+                                </li>
+                            </ul>
+                        </div><!-- .col -->
+                    </div>
+                </form>
+            </div><!-- .modal-body -->
+        </div><!-- .modal-content -->
+    </div><!-- .modal-dialog -->
+</div><!-- .modal -->
+<!-- Edit Appoinment-->
+<div class="modal fade" tabindex="-1" role="dialog" id="editAppointment">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <a href="#" class="close" data-dismiss="modal"><em class="icon ni ni-cross-sm"></em></a>
+            <div class="modal-body modal-body-md">
+                <h5 class="modal-title">Edit Appointment</h5>
+                <form action="#" class="mt-4">
+                    <div class="row g-gs">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label" for="editName">Name</label>
+                                <div class="form-control-wrap">
+                                    <input type="text" class="form-control" id="editName" placeholder="Name" value="Abu Bin Ishtiyak">
+                                </div>
+                            </div>
+                        </div><!-- .col -->
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label" for="editMobile">Mobile No</label>
+                                <div class="form-control-wrap">
+                                    <input type="text" class="form-control" id="editMobile" placeholder="Mobile No." value="+811 847-4958">
+                                </div>
+                            </div>
+                        </div><!-- .col -->
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label">Appointment Date</label>
+                                <div class="form-control-wrap">
+                                    <div class="form-icon form-icon-right">
+                                        <em class="icon ni ni-calendar"></em>
+                                    </div>
+                                    <input type="text" class="form-control date-picker" data-date-format="dd-mm-yyyy" placeholder="dd-mm-yyyy" value="18/12/2020">
+                                </div>
+                            </div>
+                        </div><!-- .col -->
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label" for="serial-edit">Serial No</label>
+                                <div class="form-control-wrap">
+                                    <input type="text" class="form-control" id="serial-edit" placeholder="Serial No" value="05">
+                                </div>
+                            </div>
+                        </div><!-- .col -->
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label">Department</label>
+                                <div class="form-control-wrap">
+                                    <select class="form-select" data-placeholder="Select Department">
+                                        <option value="">Select</option>
+                                        <option value="default_option">Gastroenterology</option>
+                                        <option value="option_select_department">Anesthesiology</option>
+                                        <option value="option_select_department">Cardiology</option>
+                                        <option value="option_select_department">Dermatology</option>
+                                        <option value="option_select_department">Diagnostic radiology</option>
+                                        <option value="option_select_department">Emergency medicine</option>
+                                        <option value="option_select_department">Neurology</option>
+                                        <option value="option_select_department">Obstetrics and gynecology</option>
+                                        <option value="option_select_department">Ophthalmology</option>
+                                        <option value="option_select_department">Pathology</option>
+                                        <option value="option_select_department">Pediatrics</option>
+                                        <option value="option_select_department">Psychiatry</option>
+                                        <option value="option_select_department">Surgery</option>
+                                        <option value="option_select_department">Urology</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div><!-- .col -->
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label">Doctor</label>
+                                <div class="form-control-wrap">
+                                    <select class="form-select" data-placeholder="Select Doctor">
+                                        <option value="">Select</option>
+                                        <option value="option_select_consulant">Joe Larson</option>
+                                        <option value="option_select_consulant">Janet Snyder</option>
+                                        <option value="option_select_consulant">Amelia Grant</option>
+                                        <option value="option_select_consulant">Debra Grant</option>
+                                        <option value="option_select_consulant">Snyder Debra</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div><!-- .col -->
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label">Status</label>
+                                <div class="form-control-wrap">
+                                    <select class="form-select" data-placeholder="Select Status">
+                                        <option value="">Select</option>
+                                        <option value="option_select_status">Approved</option>
+                                        <option value="option_select_status">Pending</option>
+                                        <option value="option_select_status">cancel</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div><!-- .col -->
+                        <div class="col-12">
+                            <ul class="align-center flex-wrap flex-sm-nowrap gx-4 gy-2">
+                                <li>
+                                    <button data-dismiss="modal" class="btn btn-primary">Update</button>
+                                </li>
+                                <li>
+                                    <a href="#" class="link link-light" data-dismiss="modal">Cancel</a>
+                                </li>
+                            </ul>
+                        </div><!-- .col -->
+                    </div>
+                </form>
+            </div><!-- .modal-body -->
+        </div><!-- .modal-content -->
+    </div><!-- .modal-dialog -->
+</div><!-- .modal -->
+<!-- JavaScript -->
+</body>
+
+</html>

@@ -63,18 +63,18 @@
                 <div class="nk-sidebar-profile nk-sidebar-profile-fixed dropdown">
                     <a href="#" data-toggle="dropdown" data-offset="50,-50">
                         <div class="user-avatar">
-                            <span>AB</span>
+                            <span th:text="${#authentication.principal.username.substring(0,2).toUpperCase()}"></span>
                         </div>
                     </a>
                     <div class="dropdown-menu dropdown-menu-md ml-4">
                         <div class="dropdown-inner user-card-wrap d-none d-md-block">
                             <div class="user-card">
                                 <div class="user-avatar">
-                                    <span>AB</span>
+                                    <span th:text="${#authentication.principal.username.substring(0,2).toUpperCase()}"></span>
                                 </div>
                                 <div class="user-info">
-                                    <span class="lead-text">Abu Bin Ishtiyak</span>
-                                    <span class="sub-text text-soft">info@softnio.com</span>
+                                    <span class="lead-text" th:text="${#authentication.principal.username}"></span>
+                                    <span class="sub-text" th:text="${#authentication.principal.username.substring(0,2)}"></span>
                                 </div>
                             </div>
                         </div>
@@ -147,7 +147,7 @@
                         </a>
                         <ul class="nk-menu-sub">
                             <li class="nk-menu-item">
-                                <a href="html/hospital/bed-group.html" class="nk-menu-link"><span class="nk-menu-text">Bed Group</span></a>
+                                <a th:href="@{/livre/list}" class="nk-menu-link"><span class="nk-menu-text">Liste</span></a>
                             </li>
                             <li class="nk-menu-item">
                                 <a href="html/hospital/bed-allotment.html" class="nk-menu-link"><span class="nk-menu-text">Bed Allotment</span></a>

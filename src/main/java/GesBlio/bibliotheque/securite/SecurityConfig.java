@@ -65,7 +65,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .failureUrl("/login?error=true")
                 .permitAll();
         http.authorizeHttpRequests()
-                .antMatchers("/api/**", "/index").authenticated()
+                .antMatchers("/livre/**", "/index").authenticated()
                 .anyRequest().permitAll();
     }
 }

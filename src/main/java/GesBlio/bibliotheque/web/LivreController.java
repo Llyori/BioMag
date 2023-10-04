@@ -1,28 +1,39 @@
 package GesBlio.bibliotheque.web;
 
 import GesBlio.bibliotheque.entities.Livre;
+import GesBlio.bibliotheque.services.CategorieService;
 import GesBlio.bibliotheque.services.LivreService;
+import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
+import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("/api/livre")
+@RequestMapping("/livre")
 public class LivreController {
     private LivreService livreService;
+    private CategorieService categorieService;
 
-    public LivreController(LivreService livreService) {
+    public LivreController(LivreService livreService, CategorieService categorieService) {
         this.livreService = livreService;
+        this.categorieService = categorieService;
     }
     @GetMapping("/list")
-    public ResponseEntity<Object> list(){
-        return new ResponseEntity<>(livreService.livres(), HttpStatus.OK);
+    public String list(Model model, @RequestParam(defaultValue = "0") int page){
+        Page<Livre> livrePage = livreService.livres(page, 10);
+        model.addAttribute("livres", livrePage);
+        model.addAttribute("categories", categorieService.categories());
+        model.addAttribute("livre", new Livre());
+        return "livre/list";
     }
     @PostMapping("/add")
-    public ResponseEntity<Livre> add(@RequestBody Livre livre){
-        return new ResponseEntity<>(livreService.add(livre), HttpStatus.CREATED);
+    public String add(@ModelAttribute("livre") Livre livre){
+        Livre l = livreService.add(livre);
+        return "redirect:/livre/list";
     }
     @GetMapping("/find/id/idLivre")
     public ResponseEntity<Livre> find(@Param("idLivre") Long idLivre){

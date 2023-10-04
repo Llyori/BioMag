@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -17,6 +18,7 @@ public class Livre {
     private Long idLivre;
     private String nomLivre;
     private String auteur;
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
     private Date datePublication;
     private double prixJournalier;
     private int nbreOccurence;
