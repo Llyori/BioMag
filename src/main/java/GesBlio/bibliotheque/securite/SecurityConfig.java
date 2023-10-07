@@ -59,7 +59,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     else
                         return null;
                 }
-                return null;
+                throw new UsernameNotFoundException("user not found");
             }
         });
     }
@@ -79,7 +79,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .usernameParameter("username")
                 .defaultSuccessUrl("/index")
                 .failureUrl("/login?error=true")
-                .permitAll();
+                .permitAll()
+                .and()
+                .logout();
         http.authorizeHttpRequests()
                 .antMatchers("/livre/**", "/index").authenticated()
                 .anyRequest().permitAll();
