@@ -21,10 +21,10 @@
                             <div class="nk-block-head nk-block-head-sm">
                                 <div class="nk-block-between g-3">
                                     <div class="nk-block-head-content"><br><br>&nbsp; &nbsp;
-                                        <h3 class="nk-block-title page-title">Livres</h3>
+                                        <h3 class="nk-block-title page-title">categories</h3>
                                         <div class="nk-block-des text-soft d-none d-md-inline-flex">
                                             <ul class="breadcrumb breadcrumb-pipe">
-                                                <li class="breadcrumb-item active"><a href="#">Total (<span th:text="${livres.totalElements}"></span>)</a></li>
+                                                <li class="breadcrumb-item active"><a href="#">Total (<span th:text="${categories.totalElements}"></span>)</a></li>
                                                 <li class="breadcrumb-item "><a href="#">Visités (10)</a></li>
                                                 <li class="breadcrumb-item"><a href="#">Empruntés (8)</a></li>
                                                 <li class="breadcrumb-item "><a href="#">Rendus (4)</a></li>
@@ -197,53 +197,32 @@
                                         <div class="card-inner p-0">
                                             <div class="nk-tb-list nk-tb-ulist">
                                                 <div class="nk-tb-item nk-tb-head">
-                                                    <div class="nk-tb-col"><span>Livre</span></div>
-                                                    <div class="nk-tb-col tb-col-mb"><span>Auteur</span></div>
-                                                    <div class="nk-tb-col tb-col-md"><span>Categorie</span></div>
-                                                    <div class="nk-tb-col tb-col-lg"><span>Prix / Jour</span></div>
-                                                    <div class="nk-tb-col tb-col-xxl"><span>Occurences</span></div>
-                                                    <div class="nk-tb-col tb-col-lg"><span>Date Publication</span></div>
-                                                    <div class="nk-tb-col tb-col-md"><span>Status</span></div>
-                                                    <div class="nk-tb-col tb-col-xxl"><span>Auteur</span></div>
+                                                    <div class="nk-tb-col tb-col-mb"><span>Nom Categorie</span></div>
+                                                    <div class="nk-tb-col tb-col-md"><span>Nombre de livres</span></div>
+                                                    <div class="nk-tb-col tb-col-md"><span>Statut</span></div>
                                                     <div class="nk-tb-col nk-tb-col-tools">&nbsp;</div>
                                                 </div><!-- .nk-tb-item -->
 
-                                                <div class="nk-tb-item" th:each="livre : ${livres}">
+                                                <div class="nk-tb-item" th:each="categorie : ${categories}">
                                                     <div class="nk-tb-col">
                                                         <div class="user-card">
                                                             <div class="user-avatar sm bg-orange-dim">
                                                                 <span>A</span>
                                                             </div>
                                                             <div class="user-info">
-                                                                <span class="tb-lead" th:text="${livre.nomLivre}">{livre.nomLivre}<span class="dot dot-gray d-md-none ml-1"></span></span>
+                                                                <span class="tb-lead" th:text="${categorie.nomCategorie}"><span class="dot dot-gray d-md-none ml-1"></span></span>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="nk-tb-col tb-col-mb">
-                                                        <span class="tb-lead-sub" th:text="${livre.auteur}">{livre.auteur}</span>
+                                                        <span class="tb-lead-sub" th:text="${#lists.size(categorie.livres)}"></span>
                                                     </div>
                                                     <div class="nk-tb-col tb-col-md">
                                                         <div class="user-card">
                                                             <div class="user-info">
-                                                                <span class="tb-lead" th:text="${livre.categorie.nomCategorie}">{livre.categorie.nomCategorie}</span>
+                                                                <span class="tb-lead" th:text="${categorie.statut}"></span>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="nk-tb-col tb-col-lg">
-                                                        <span th:text="${livre.prixJournalier}">{livre.prixJournalier}</span>
-                                                    </div>
-                                                    <div class="nk-tb-col tb-col-xxl">
-                                                        <span th:text="${livre.nbreOccurence}">{livre.nbreOccurence}</span>
-                                                    </div>
-                                                    <div class="nk-tb-col tb-col-lg">
-                                                        <span class="tb-date" th:text="${livre.datePublication}">{livre.datePublication}</span>
-                                                    </div>
-                                                    <div class="nk-tb-col tb-col-md">
-                                                        <span class="tb-status text-grey">Visited</span>
-                                                        <span data-toggle="tooltip" title="Visited at 11 Fab, 2021 01:02 PM" data-placement="top"><em class="icon ni ni-info"></em></span>
-                                                    </div>
-                                                    <div class="nk-tb-col tb-col-xxl">
-                                                        <span>Ernesto Vargas</span>
                                                     </div>
                                                     <div class="nk-tb-col nk-tb-col-tools">
                                                         <ul class="nk-tb-actions gx-1">
@@ -258,7 +237,7 @@
                                                                     <div class="dropdown-menu dropdown-menu-right">
                                                                         <ul class="link-list-opt no-bdr">
                                                                             <li><a href="#" data-toggle="modal" data-target="#editAppointment"><em class="icon ni ni-edit"></em><span>Edit</span></a></li>
-                                                                            <li><a th:href="@{/livre/delete/}+${livre.idLivre}" onclick="confirm('voulez vous supprimer le livre?')"><em class="icon ni ni-trash"></em><span>Delete</span></a></li>
+                                                                            <li><a th:href="@{/categorie/delete/}+${categorie.idCategorie}" onclick="confirm('voulez vous supprimer la categorie?')"><em class="icon ni ni-trash"></em><span>Delete</span></a></li>
                                                                         </ul>
                                                                     </div>
                                                                 </div>
@@ -274,20 +253,20 @@
                                             <div class="nk-block-between-md g-3">
                                                 <div class="g">
                                                     <ul class="pagination justify-content-center justify-content-md-start">
-                                                        <li class="page-item" th:class="${livres.isFirst} ? '' : 'disabled'"><a class="page-link" th:href="@{/livre/list(page=${livres.number - 1})}">Prev</a></li>
+                                                        <li class="page-item" th:class="${categories.isFirst} ? '' : 'disabled'"><a class="page-link" th:href="@{/categorie/list(page=${categories.number - 1})}">Prev</a></li>
 <!--                                                        <li class="page-item"><a class="page-link">1</a></li>-->
 <!--                                                        <li class="page-item"><a class="page-link">2</a></li>-->
 
-<!--                                                        <li th:each="pageNum : ${#numbers.sequence(livres.number, livres.number + 4)}" th:class="${pageNum == livres.number} ? 'active' : ''">-->
-<!--                                                            <a th:href="@{/livre/list(page=${pageNum})}" th:text="${pageNum}">Page {pageNum}</a>-->
+<!--                                                        <li th:each="pageNum : ${#numbers.sequence(categories.number, categories.number + 4)}" th:class="${pageNum == categories.number} ? 'active' : ''">-->
+<!--                                                            <a th:href="@{/categorie/list(page=${pageNum})}" th:text="${pageNum}">Page {pageNum}</a>-->
 <!--                                                        </li>-->
 
-                                                        <li class="page-item" th:class="${livres.isLast} ? 'disabled' : ''">
-                                                            <a class="page-link" th:href="@{/livre/list(page=${livres.number + 1})}">Next</a>
+                                                        <li class="page-item" th:class="${categories.isLast} ? 'disabled' : ''">
+                                                            <a class="page-link" th:href="@{/categorie/list(page=${categories.number + 1})}">Next</a>
                                                         </li>
 
-                                                        <li class="page-item" th:class="${livres.isLast} ? 'disabled' : ''">
-                                                            <a class="page-link" th:href="@{/livre/list(page=${livres.totalPages - 1})}">Last Page</a>
+                                                        <li class="page-item" th:class="${categories.isLast} ? 'disabled' : ''">
+                                                            <a class="page-link" th:href="@{/categorie/list(page=${categories.totalPages - 1})}">Last Page</a>
                                                         </li>
                                                     </ul><!-- .pagination -->
                                                 </div>
@@ -325,74 +304,17 @@
         <div class="modal-content">
             <a href="#" class="close" data-dismiss="modal"><em class="icon ni ni-cross-sm"></em></a>
             <div class="modal-body modal-body-md">
-                <h5 class="modal-title">Nouveau Livre</h5><br>
-                <form th:method="@{post}" th:action="@{/livre/add}" th:object="${livre}">
+                <h5 class="modal-title">Nouvelle Categorie</h5><br>
+                <form th:method="@{post}" th:action="@{/categorie/add}" th:object="${categorie}">
                     <div class="row g-gs">
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="form-label" for="name">Nom</label>
                                 <div class="form-control-wrap">
-                                    <input type="text" class="form-control" id="name" placeholder="Nom Livre" th:field="*{nomLivre}">
+                                    <input type="text" class="form-control" id="name" placeholder="Nom categorie" th:field="*{nomCategorie}">
                                 </div>
                             </div>
                         </div><!-- .col -->
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="form-label" for="mobile">Auteur</label>
-                                <div class="form-control-wrap">
-                                    <input type="text" class="form-control" id="mobile" placeholder="Auteur" th:field="*{auteur}">
-                                </div>
-                            </div>
-                        </div><!-- .col -->
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="form-label">Date Publication</label>
-                                <div class="form-control-wrap">
-                                    <div class="form-icon form-icon-right">
-                                        <em class="icon ni ni-calendar"></em>
-                                    </div>
-                                    <input type="text" class="form-control date-picker" data-date-format="dd-mm-yyyy" placeholder="dd-mm-yyyy" th:field="*{datePublication}">
-                                </div>
-                            </div>
-                        </div><!-- .col -->
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="form-label" for="serial">Prix Journalier D'Emprunt</label>
-                                <div class="form-control-wrap">
-                                    <input type="number" class="form-control" id="serial" th:field="*{prixJournalier}">
-                                </div>
-                            </div>
-                        </div><!-- .col -->
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="form-label" for="serial">Occurence</label>
-                                <div class="form-control-wrap">
-                                    <input type="number" class="form-control" id="serial" th:field="*{nbreOccurence}">
-                                </div>
-                            </div>
-                        </div><!-- .col -->
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="form-label">Categorie</label>
-                                <div class="form-control-wrap">
-                                    <select class="form-select" data-placeholder="Selectionne une Catégorie" th:field="*{categorie}">
-                                        <option value="">Select</option>
-                                        <option th:each="categorie : ${categories}" th:value="${categorie.idCategorie}" th:text="${categorie.nomCategorie}"></option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="form-label">Mode</label>
-                                <div class="form-control-wrap">
-                                    <select class="form-select" th:field="*{actif}">
-                                        <option value="false">Lecture</option>
-                                        <option value="true">Emprunt</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
                         <div class="col-12">
                             <ul class="align-center flex-wrap flex-sm-nowrap gx-4 gy-2">
                                 <li>
@@ -522,6 +444,11 @@
     </div><!-- .modal-dialog -->
 </div><!-- .modal -->
 <!-- JavaScript -->
+<script>
+    function deleteCategorie(){
+        alert('ocho');
+    }
+</script>
 </body>
 
 </html>

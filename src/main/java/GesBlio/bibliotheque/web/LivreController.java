@@ -40,12 +40,14 @@ public class LivreController {
         return new ResponseEntity<>(livreService.findById(idLivre), HttpStatus.OK);
     }
     @PutMapping("/update")
-    public ResponseEntity<Livre> update(@RequestBody Livre livre){
-        return new ResponseEntity<>(livreService.update(livre), HttpStatus.ACCEPTED);
+    public String update(@ModelAttribute("livre") Livre livre){
+        Livre l = livreService.update(livre);
+        return "redirect:/livre/list";
     }
-    @GetMapping("delete/{idLivre}")
-    public void delete(@Param("idLivre") Long idLivre){
+    @GetMapping("/delete/{idLivre}")
+    public String delete(@PathVariable("idLivre") Long idLivre){
         livreService.delete(idLivre);
+        return "redirect:/livre/list";
     }
     @GetMapping("activer/{idLivre}")
     public void activerLivre(@Param("idLivre") Long idLivre){

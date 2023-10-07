@@ -3,6 +3,9 @@ package GesBlio.bibliotheque.services.serviceImpl;
 import GesBlio.bibliotheque.dao.CategorieRepository;
 import GesBlio.bibliotheque.entities.Categorie;
 import GesBlio.bibliotheque.services.CategorieService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,6 +31,12 @@ public class CategorieServiceImpl implements CategorieService {
     @Override
     public List<Categorie> categories() {
         return categorieRepository.findAll();
+    }
+
+    @Override
+    public Page<Categorie> categories(int pageNum, int pageSize) {
+        Pageable pageable = PageRequest.of(pageNum, pageSize);
+        return categorieRepository.findAll(pageable);
     }
 
     @Override

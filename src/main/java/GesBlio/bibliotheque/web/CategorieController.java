@@ -1,15 +1,20 @@
 package GesBlio.bibliotheque.web;
 
 import GesBlio.bibliotheque.entities.Categorie;
+import GesBlio.bibliotheque.entities.Livre;
 import GesBlio.bibliotheque.services.CategorieService;
+import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Controller
-@RequestMapping("/api/categorie")
+@RequestMapping("/categorie")
 public class CategorieController {
     private CategorieService categorieService;
 
@@ -17,12 +22,16 @@ public class CategorieController {
         this.categorieService = categorieService;
     }
     @GetMapping("/list")
-    public ResponseEntity<Object> list(){
-        return new ResponseEntity<>(categorieService.categories(), HttpStatus.OK);
+    public String list(Model model, @RequestParam(defaultValue = "0") int page){
+        Page<Categorie> categories = categorieService.categories(page, 10);
+        model.addAttribute("categories", categories);
+        model.addAttribute("categorie", new Categorie());
+        return "categorie/list";
     }
     @PostMapping("/add")
-    public ResponseEntity<Categorie> add(@RequestBody Categorie categorie){
-        return new ResponseEntity<>(categorieService.add(categorie), HttpStatus.CREATED);
+    public String add(@ModelAttribute("categorie") Categorie categorie){
+        Categorie c = categorieService.add(categorie);
+        return "redirect:/categorie/list";
     }
     @PutMapping("/update")
     public ResponseEntity<Categorie> update(@RequestBody Categorie categorie){
@@ -33,7 +42,8 @@ public class CategorieController {
         return new ResponseEntity<>(categorieService.findById(idCategorie), HttpStatus.OK);
     }
     @GetMapping("/delete/{idCategorie}")
-    public void delete(@Param("idCategorie") Long idCategorie){
+    public String delete(@Param("idCategorie") Long idCategorie){
         categorieService.delete(idCategorie);
+        return "redirect:/categorie/list";
     }
 }
