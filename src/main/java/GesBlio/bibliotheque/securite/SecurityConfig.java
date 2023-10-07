@@ -33,17 +33,33 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(AuthenticationManagerBuilder managerBuilder) throws Exception {
         managerBuilder.userDetailsService(new UserDetailsService() {
             @Override
-            public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-                Client client = clientService.findByEmail(email);
+            public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
+                //ici je récupère les 2 deux méthodes d'authentification et j'utilise celle valide
+                Client client = clientService.findByEmail(userName);
+                Client client1 = clientService.findByFirstName(userName);
                 Collection<GrantedAuthority> authorities = new ArrayList<>();
-                client.getAppRoles().forEach(roles -> {
-                    authorities.add(new SimpleGrantedAuthority(roles.getRoleName()));
-                });
-                if(client.isEnabled())
-                    return new User(client.getEmail(), client.getPassword(), authorities);
-                else
-                    return null;
+                //si l'email est passé on l'utilise
+                if(client != null){
+                    client.getAppRoles().forEach(roles -> {
+                        authorities.add(new SimpleGrantedAuthority(roles.getRoleName()));
+                    });
+                    if(client.isEnabled())
+                        return new User(client.getEmail(), client.getPassword(), authorities);
+                    else
+                        return null;
 
+                }
+                //si le prénom est passé on l'utilise
+                else if (client1 != null) {
+                    client1.getAppRoles().forEach(roles -> {
+                        authorities.add(new SimpleGrantedAuthority(roles.getRoleName()));
+                    });
+                    if(client1.isEnabled())
+                        return new User(client1.getFirstName(), client1.getPassword(), authorities);
+                    else
+                        return null;
+                }
+                return null;
             }
         });
     }
