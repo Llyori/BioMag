@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zxx" class="js">
+
+    <div th:include="/modal/header2.html"></div>
+
+<body class="nk-body ui-rounder npc-default has-sidebar ">
+<div class="nk-app-root">
+    <!-- main @s -->
+        <!-- wrap @s -->
+
+            <div th:include="/modal/header-bar.html"></div>&nbsp;
+                        <div class="content-page wide-md m-auto"><br><br>
+                                    <div class="nk-block-head nk-block-head-lg wide-xs mx-auto">
+                                        <div class="nk-block-head-content text-center">
+                                            <h2 class="nk-block-title fw-normal">Configuration du Profil</h2>
+                                            <div class="nk-block-des">
+                                                <p class="lead">S'il vous plaît, donnez-nous vos préférences enfin de voir davantages des articles qui vous intéressent.</p>
+                                            </div>
+                                        </div>
+                                    </div><!-- .nk-block-head -->
+                                    <div class="nk-block">
+                                        <div class="card card-bordered">
+                                            <div class="card-inner card-inner-xl">
+                                                <article class="entry">
+                                                    <h3>Veuillez sélectionner vos Catégories des livres préférées.</h3><br><br>
+                                                    <form method="post" th:action="@{/profile}" th:object="${profil}">
+                                                        <input type="number" th:field="*{client}" th:value="${client.idClient}" class="form-control">
+                                                        <div class="col-sm-12">
+                                                            <div class="form-group">
+                                                                <label class="form-label">Catégories</label>
+                                                                <div class="form-control-wrap">
+                                                                    <select class="form-select" data-search="on" multiple="multiple" data-placeholder="selectionnez les Catégories." th:field="*{categories}">
+                                                                        <option th:each="categorie : ${categories}" th:value="${categorie.idCategorie}" th:text="${categorie.nomCategorie}"></option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div><br><br>
+                                                        <center><button class="btn btn-xm btn-primary btn-action" type="submit">Enregistrer</button></center>
+                                                    </form>
+                                                </article>
+                                            </div>
+                                        </div>
+                                    </div><!-- .nk-block -->
+                        </div><!-- .content-page -->
+                </div>
+
+        <!-- wrap @e -->
+    <!-- main @e -->
+</body>
+
+</html>

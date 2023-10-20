@@ -10,6 +10,7 @@ public interface LivreService {
     public Livre findById(Long idLivre);
     public Livre update(Livre livre);
     public Page<Livre> livres(int pageNum, int pageSize);
+    public List<Livre> livres();
     public void delete(Long idLivre);
     public void activerLivre(Long idLivre);
     public void desactiverLivre(Long idLivre);

@@ -1,6 +1,7 @@
 package GesBlio.bibliotheque.services.serviceImpl;
 
 import GesBlio.bibliotheque.dao.CategorieRepository;
+import GesBlio.bibliotheque.dao.LivreRepository;
 import GesBlio.bibliotheque.entities.Categorie;
 import GesBlio.bibliotheque.services.CategorieService;
 import org.springframework.data.domain.Page;
@@ -48,6 +49,12 @@ public class CategorieServiceImpl implements CategorieService {
 
     @Override
     public void delete(Long idCategorie) {
-        categorieRepository.desable(idCategorie);
+        if(categorieRepository.findById(idCategorie).get().getLivres().isEmpty()){
+            categorieRepository.deleteById(idCategorie);
+        }else{
+            Categorie categorie = categorieRepository.findById(idCategorie).get();
+            categorie.setStatut(false);
+            categorieRepository.save(categorie);
+        }
     }
 }

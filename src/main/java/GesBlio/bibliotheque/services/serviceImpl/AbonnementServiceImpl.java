@@ -3,6 +3,9 @@ package GesBlio.bibliotheque.services.serviceImpl;
 import GesBlio.bibliotheque.dao.AbonnementRepository;
 import GesBlio.bibliotheque.entities.Abonnement;
 import GesBlio.bibliotheque.services.AbonnementService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,6 +25,12 @@ public class AbonnementServiceImpl implements AbonnementService {
     @Override
     public Abonnement findById(Long idAbonnement) {
         return abonnementRepository.findById(idAbonnement).get();
+    }
+
+    @Override
+    public Page<Abonnement> abonnements(int pageNum, int pageSize) {
+        Pageable pageable = PageRequest.of(pageNum, pageSize);
+        return abonnementRepository.findAll(pageable);
     }
 
     @Override

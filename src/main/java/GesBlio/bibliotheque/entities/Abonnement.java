@@ -20,6 +20,8 @@ public class Abonnement {
     private int periode;
     private double montant;
     private String statut;
+    @Transient
+    private int nbreUtilisateur;
     @OneToMany(mappedBy = "abonnement")
     private List<Souscription> souscription;
 }

@@ -44,8 +44,8 @@ public class LivreController {
         Livre l = livreService.update(livre);
         return "redirect:/livre/list";
     }
-    @GetMapping("/delete/{idLivre}")
-    public String delete(@PathVariable("idLivre") Long idLivre){
+    @GetMapping("/delete")
+    public String delete(@RequestParam("idLivre") Long idLivre){
         livreService.delete(idLivre);
         return "redirect:/livre/list";
     }

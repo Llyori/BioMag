@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="zxx" class="js">
+
+<div th:include="/modal/header2.html"></div>
+
+<body class="nk-body ui-rounder npc-default has-sidebar ">
+<div class="nk-app-root">
+    <div th:include="/modal/side-bar.html"></div>
+    <!-- main @s -->
+    <div class="nk-main ">
+        <!-- wrap @s -->
+        <div class="nk-wrap ">
+            <div th:include="/modal/header-bar.html"></div>&nbsp;
+
+            <div class="nk-content ">
+                <div class="container-fluid">
+                    <div class="nk-content-inner">
+                        <div class="nk-content-body">
+                            <div class="nk-block-head nk-block-head-sm"><br><br><br>
+                                <div class="nk-block-between">
+                                    <div class="nk-block-head-content">
+                                        <h3 class="nk-block-title page-title">Abonnements</h3>
+                                        <div class="nk-block-des text-soft">
+                                            <p>Vous avez au total <span th:text="${abonnements.totalElements}"></span> abonnements.</p>
+                                        </div>
+                                    </div><!-- .nk-block-head-content -->
+                                    <div class="nk-block-head-content">
+                                        <div class="toggle-wrap nk-block-tools-toggle">
+                                            <a href="#" class="btn btn-icon btn-trigger toggle-expand mr-n1" data-target="pageMenu"><em class="icon ni ni-menu-alt-r"></em></a>
+                                            <div class="toggle-expand-content" data-content="pageMenu">
+                                                <ul class="nk-block-tools g-3">
+                                                    <li>
+                                                        <div class="drodown">
+                                                            <a href="#" class="dropdown-toggle btn btn-white btn-dim btn-outline-light" data-toggle="dropdown"><em class="d-none d-sm-inline icon ni ni-filter-alt"></em><span>Filtered By</span><em class="dd-indc icon ni ni-chevron-right"></em></a>
+                                                            <div class="dropdown-menu dropdown-menu-right">
+                                                                <ul class="link-list-opt no-bdr">
+                                                                    <li><a href="#"><span>Open</span></a></li>
+                                                                    <li><a href="#"><span>Closed</span></a></li>
+                                                                    <li><a href="#"><span>Onhold</span></a></li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                    <div class="nk-block-head-content">
+                                                        <a href="#" data-toggle="modal" data-target="#addAppointment" class="btn btn-icon btn-primary d-md-none"><em class="icon ni ni-plus"></em></a>
+                                                        <a href="#" data-toggle="modal" data-target="#addAppointment" class="btn btn-primary d-none d-md-inline-flex"><em class="icon ni ni-plus"></em><span>Nouveau</span></a>
+                                                    </div><!-- .nk-block-head-content -->
+                                                </ul>
+                                            </div>
+                                        </div><!-- .toggle-wrap -->
+                                    </div><!-- .nk-block-head-content -->
+                                </div><!-- .nk-block-between -->
+                            </div><!-- .nk-block-head -->
+                            <div class="nk-block">
+                                <div class="card card-bordered card-stretch">
+                                    <div class="card-inner-group">
+                                        <div class="card-inner p-0">
+                                            <table class="nk-tb-list nk-tb-ulist">
+                                                <thead>
+                                                <tr class="nk-tb-item nk-tb-head">
+                                                    <th class="nk-tb-col"><span class="sub-text">Nom Abonnement</span></th>
+                                                    <th class="nk-tb-col"><span class="sub-text">Description</span></th>
+                                                    <th class="nk-tb-col"><span class="sub-text">Nombre de Livres</span></th>
+                                                    <th class="nk-tb-col"><span class="sub-text">Période</span></th>
+                                                    <th class="nk-tb-col"><span class="sub-text">Montant</span></th>
+                                                    <th class="nk-tb-col"><span class="sub-text">Nombre Souscription</span></th>
+                                                    <th class="nk-tb-col"><span class="sub-text">Statut</span></th>
+                                                </tr><!-- .nk-tb-item -->
+                                                </thead>
+                                                <tbody>
+                                                    <tr class="nk-tb-item" th:each="abonnement : ${abonnements}">
+                                                        <td class="nk-tb-col">
+                                                            <a class="project-title">
+                                                                <div class="user-avatar sq bg-purple"><img th:src="@{web/images/icons/plan-s2.svg}" alt=""></div>
+                                                                <div class="project-info">
+                                                                    <h6 class="title" th:text="${abonnement.nomAbonnement}"></h6>
+                                                                </div>
+                                                            </a>
+                                                        </td>
+                                                        <td class="nk-tb-col tb-col-xxl">
+                                                            <span th:text="${abonnement.description}"></span>
+                                                        </td>
+                                                        <td class="nk-tb-col tb-col-lg">
+                                                            <span th:text="${abonnement.nbreLivre}"></span>
+                                                        </td>
+                                                        <td class="nk-tb-col tb-col-lg">
+                                                            <ul class="project-users g-1">
+                                                                <li>
+                                                                    <div class="user-avatar bg-light sm"><span th:text="${abonnement.periode}"></span></div> Jours
+                                                                </li>
+                                                            </ul>
+                                                        </td>
+                                                        <td class="nk-tb-col tb-col-xxl">
+                                                            <span th:text="${abonnement.montant}"></span> Fcfa
+                                                        </td>
+                                                        <td class="nk-tb-col tb-col-md"><center><span th:text="${#lists.size(abonnement.souscription)}"></span></center></td>
+                                                        <td class="nk-tb-col tb-col-mb">
+                                                            <span class="badge badge-dim badge-success"><em class="icon ni ni-clock"></em><span>Actif</span></span>
+                                                        </td>
+                                                        <td class="nk-tb-col nk-tb-col-tools">
+                                                            <ul class="nk-tb-actions gx-1">
+                                                                <li>
+                                                                    <div class="drodown">
+                                                                        <a href="#" class="dropdown-toggle btn btn-sm btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
+                                                                        <div class="dropdown-menu dropdown-menu-right">
+                                                                            <ul class="link-list-opt no-bdr">
+                                                                                <li><a href="#"><em class="icon ni ni-edit"></em><span>Editer</span></a></li>
+                                                                                <li><a href="#"><em class="icon ni ni-delete"></em><span>Supprimer</span></a></li>
+                                                                            </ul>
+                                                                        </div>
+                                                                    </div>
+                                                                </li>
+                                                            </ul>
+                                                        </td>
+                                                    </tr><!-- .nk-tb-item -->
+                                                </tbody>
+                                            </table><!-- .nk-tb-list -->
+                                        </div><!-- .card-inner -->
+                                        <div class="card-inner">
+                                            <div class="nk-block-between-md g-3">
+                                                <div class="g">
+                                                    <ul class="pagination justify-content-center justify-content-md-start">
+                                                        <li th:class="${abonnements.isFirst} ? 'disabled' : ''"><a class="page-link" th:href="@{/abonnement/list(page=${abonnements.number - 1})}">Prev</a></li>
+
+                                                        <li th:each="pageNum : ${#numbers.sequence(abonnements.number, abonnements.totalPages - 2)}" class="page-item">
+                                                            <a th:href="@{/abonnement/list(page=${pageNum})}" class="page-link" th:text="${pageNum}">Page {pageNum}</a>
+                                                        </li>
+
+                                                        <li class="page-item" th:class="${abonnements.isLast} ? 'disabled' : ''">
+                                                            <a class="page-link" th:href="@{/abonnement/list(page=${abonnements.number + 1})}">Next</a>
+                                                        </li>
+
+                                                        <li class="page-item" th:class="${abonnements.isLast} ? 'disabled' : ''">
+                                                            <a class="page-link" th:href="@{/abonnement/list(page=${abonnements.totalPages - 1})}">Last Page</a>
+                                                        </li>
+                                                    </ul><!-- .pagination -->
+                                                </div>
+                                                <div class="g">
+                                                    <div class="pagination-goto d-flex justify-content-center justify-content-md-start gx-3">
+                                                        <div>Page</div>
+                                                        <div>
+                                                            <select class="form-select form-select-sm" data-search="on" data-dropdown="xs center">
+                                                                <option value="page-1" th:each="pageNum : ${#numbers.sequence(abonnements.number, abonnements.totalPages - 1)}" th:text="${pageNum}"></option>
+                                                            </select>
+                                                        </div>
+                                                        OF <div th:text="${abonnements.totalPages}"></div>
+                                                    </div>
+                                                </div><!-- .pagination-goto -->
+                                            </div><!-- .nk-block-between -->
+                                        </div><!-- .card-inner -->
+                                    </div><!-- .card-inner-group -->
+                                </div><!-- .card -->
+                            </div><!-- .nk-block -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- content @e -->
+        </div>
+        <!-- wrap @e -->
+    </div>
+    <!-- main @e -->
+</div>
+
+<div class="modal fade" tabindex="-1" role="dialog" id="addAppointment">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <a href="#" class="close" data-dismiss="modal"><em class="icon ni ni-cross-sm"></em></a>
+            <div class="modal-body modal-body-md">
+                <h5 class="modal-title">Nouvel Abonnement</h5><br>
+                <form th:method="@{post}" th:action="@{/abonnement/add}" th:object="${abonnement}">
+                    <div class="row g-gs">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label" for="name">Nom</label>
+                                <div class="form-control-wrap">
+                                    <input type="text" class="form-control" id="name" placeholder="Nom Abonnement" th:field="*{nomAbonnement}">
+                                </div>
+                            </div>
+                        </div><!-- .col -->
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label" for="mobile">Description</label>
+                                <div class="form-control-wrap">
+                                    <input type="text" class="form-control" id="mobile" placeholder="Auteur" th:field="*{description}">
+                                </div>
+                            </div>
+                        </div><!-- .col -->
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="form-label">Nombre de Livres</label>
+                                <div class="form-control-wrap">
+                                    <input type="number" class="form-control" th:field="*{nbreLivre}">
+                                </div>
+                            </div>
+                        </div><!-- .col -->
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="form-label">Montant (FCFA)</label>
+                                <div class="form-control-wrap">
+                                    <input type="number" class="form-control" th:field="*{montant}">
+                                </div>
+                            </div>
+                        </div><!-- .col -->
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="form-label">Durée (Jour)</label>
+                                <div class="form-control-wrap">
+                                    <input type="number" class="form-control" th:field="*{periode}">
+                                </div>
+                            </div>
+                        </div><!-- .col -->
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="form-label">Statut</label>
+                                <div class="form-control-wrap">
+                                    <select class="form-select" th:field="*{statut}">
+                                        <option value="actif">Actif</option>
+                                        <option value="inactif">Inactif</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <ul class="align-center flex-wrap flex-sm-nowrap gx-4 gy-2">
+                                <li>
+                                    <button class="btn btn-primary" type="submit">Enregistrer</button>
+                                </li>
+                                <li>
+                                    <button type="reset" class="link link-light">Cancel</button>
+                                </li>
+                            </ul>
+                        </div><!-- .col -->
+                    </div>
+                </form>
+            </div><!-- .modal-body -->
+        </div><!-- .modal-content -->
+    </div><!-- .modal-dialog -->
+</div><!-- .modal -->
+
+
+</body>
+
+</html>

@@ -1,5 +1,6 @@
 package GesBlio.bibliotheque.entities;
 
+import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,17 +17,23 @@ public class Livre {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idLivre;
+    @NotNull
     private String nomLivre;
+    @NotNull
     private String auteur;
     @DateTimeFormat(pattern = "dd-MM-yyyy")
+    @NotNull
     private Date datePublication;
     private double prixJournalier;
+    @NotNull
     private int nbreOccurence;
     @ManyToOne
     @JoinColumn(name = "categorie")
+    @NotNull
     private Categorie categorie;
     @OneToMany(mappedBy = "livre")
     private List<Emprunt> emprunt;
+    @NotNull
     private boolean actif; // Si le statut actif est true, alors le livre peut être emprunté sinon, il pourra juste être lu en bibliothèque
     @Column(columnDefinition = "boolean default true")
     private boolean statut; // Lorsqu'on veut supprimer un livre et ne plus pouvoir donner l'occasion qu'il soit emprunté, le statut passe à false

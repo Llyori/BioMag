@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.websocket.server.PathParam;
 import java.util.List;
 
 @Controller
@@ -41,8 +42,8 @@ public class CategorieController {
     public ResponseEntity<Categorie> find(@Param("idCategorie") Long idCategorie){
         return new ResponseEntity<>(categorieService.findById(idCategorie), HttpStatus.OK);
     }
-    @GetMapping("/delete/{idCategorie}")
-    public String delete(@Param("idCategorie") Long idCategorie){
+    @GetMapping("/delete")
+    public String delete(@RequestParam("idCategorie") Long idCategorie){
         categorieService.delete(idCategorie);
         return "redirect:/categorie/list";
     }

@@ -1,7 +1,7 @@
 <div class="nk-sidebar" data-content="sidebarMenu">
     <div class="nk-sidebar-bar">
         <div class="nk-apps-brand">
-            <a href="html/index.html" class="logo-link">
+            <a th:href="@{/index}" class="logo-link">
                 <img class="logo-light logo-img" src="web/images/logo-small.png" srcset="web/images/logo-small2x.png 2x" alt="logo">
                 <img class="logo-dark logo-img" src="web/images/logo-dark-small.png" srcset="web/images/logo-dark-small2x.png 2x" alt="logo-dark">
             </a>
@@ -101,7 +101,7 @@
                 <h5 class="title">Management de la bibliothèque</h5>
                 <ul class="nk-menu">
                     <li class="nk-menu-item">
-                        <a href="html/hospital/index.html" class="nk-menu-link">
+                        <a th:href="@{/index}" class="nk-menu-link">
                             <span class="nk-menu-icon"><em class="icon ni ni-dashboard-fill"></em></span>
                             <span class="nk-menu-text">Dashboard</span>
                         </a>
@@ -119,10 +119,24 @@
                         </a>
                         <ul class="nk-menu-sub">
                             <li class="nk-menu-item">
-                                <a href="html/hospital/patient-add.html" class="nk-menu-link"><span class="nk-menu-text">Ajouter Client</span></a>
+                                <a th:href="@{/nouveau}" class="nk-menu-link"><span class="nk-menu-text">Ajouter Client</span></a>
                             </li>
                             <li class="nk-menu-item">
-                                <a href="html/hospital/patient-list.html" class="nk-menu-link"><span class="nk-menu-text">Liste Clients</span></a>
+                                <a th:href="@{/client/list}" class="nk-menu-link"><span class="nk-menu-text">Liste Clients</span></a>
+                            </li>
+                        </ul><!-- .nk-menu-sub -->
+                    </li><!-- .nk-menu-item -->
+                    <li class="nk-menu-item has-sub">
+                        <a href="#" class="nk-menu-link nk-menu-toggle">
+                            <span class="nk-menu-icon"><em class="icon ni ni-users-fill"></em></span>
+                            <span class="nk-menu-text">Abonnements</span>
+                        </a>
+                        <ul class="nk-menu-sub">
+                            <li class="nk-menu-item">
+                                <a th:href="@{/abonnement/list}" class="nk-menu-link"><span class="nk-menu-text">Liste</span></a>
+                            </li>
+                            <li class="nk-menu-item">
+                                <a th:href="@{/abonnement/souscription}" class="nk-menu-link"><span class="nk-menu-text">Souscription</span></a>
                             </li>
                         </ul><!-- .nk-menu-sub -->
                     </li><!-- .nk-menu-item -->

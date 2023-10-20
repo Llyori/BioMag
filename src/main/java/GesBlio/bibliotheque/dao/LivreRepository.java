@@ -1,9 +1,12 @@
 package GesBlio.bibliotheque.dao;
 
+import GesBlio.bibliotheque.entities.Categorie;
 import GesBlio.bibliotheque.entities.Livre;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+
+import java.util.List;
 
 public interface LivreRepository extends JpaRepository<Livre, Long> {
     @Query("UPDATE Livre l SET l.actif = false WHERE l.id = ?1")
@@ -15,4 +18,5 @@ public interface LivreRepository extends JpaRepository<Livre, Long> {
     @Query("UPDATE Livre l SET l.statut = false WHERE l.id = ?1")
     @Modifying
     public void move(Long id);
+    public List<Livre> findAllByCategorie(Categorie categorie);
 }

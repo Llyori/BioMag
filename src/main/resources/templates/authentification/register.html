@@ -59,16 +59,36 @@
 								<p class="error-message" style="font-size: small; color: red;">Erreur d'enregistrement</p>
 							</div>
 							<form th:method="@{post}" th:action="@{/register}" th:object="${client}" onsubmit="return validateForm()">
-								<div class="top-margin">
-									<label>First Name</label>
-									<input type="text" th:field="*{firstName}" class="form-control">
+
+								<div class="row top-margin">
+									<div class="col-sm-6">
+										<label>Nom</label>
+										<input type="text" th:field="*{firstName}" class="form-control">
+									</div>
+									<div class="col-sm-6">
+										<label>Prénom</label>
+										<input type="text" th:field="*{secondName}" class="form-control">
+									</div>
+								</div>
+								<div class="row top-margin">
+									<div class="col-sm-6">
+										<label>Date de Naissance</label>
+										<input type="text" th:field="*{dateNaissance}" class="form-control">
+									</div>
+									<div class="col-sm-6">
+										<div class="form-group">
+											<label class="form-label">Sexe</label>
+											<div class="form-control-wrap">
+												<select class="form-control">
+													<option value="Masculin">Masculin</option>
+													<option value="Féminin">Féminin</option>
+												</select>
+											</div>
+										</div>
+									</div>
 								</div>
 								<div class="top-margin">
-									<label>Last Name</label>
-									<input type="text" th:field="*{secondName}" class="form-control">
-								</div>
-								<div class="top-margin">
-									<label>Email Address <span class="text-danger">*</span></label>
+									<label>Email <span class="text-danger">*</span></label>
 									<input type="text" th:field="*{email}" class="form-control">
 									<div th:if="${param.errem}">
 										<p class="error-message" style="font-size: small; color: red;">Cette addresse existe déjà.</p>
@@ -77,14 +97,14 @@
 
 								<div class="row top-margin">
 									<div class="col-sm-6">
-										<label>Number ID Cart <span class="text-danger">*</span></label>
+										<label>Numéro CNI <span class="text-danger">*</span></label>
 										<input type="number" maxlength="17" minlength="17" th:field="*{numIdCart}" class="form-control">
 										<div th:if="${param.erric}">
 											<p class="error-message" style="font-size: small; color: red;">Veuillez entrer une série de 17 chiffres.</p>
 										</div>
 									</div>
 									<div class="col-sm-6">
-								 		<label>Phone Number <span class="text-danger">*</span></label>
+								 		<label>Numéro Téléphone <span class="text-danger">*</span></label>
 										<input type="number" th:field="*{phoneNumber}" class="form-control">
 										<div th:if="${param.errph}">
 											<p class="error-message" style="font-size: small; color: red;">Ce numéro existe déjà, veuillez saisir un nouveau.</p>

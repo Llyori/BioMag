@@ -42,6 +42,11 @@ public class LivreServiceImpl implements LivreService {
     }
 
     @Override
+    public List<Livre> livres() {
+        return livreRepository.findAll();
+    }
+
+    @Override
     public void delete(Long idLivre) {
         livreRepository.move(idLivre);
     }

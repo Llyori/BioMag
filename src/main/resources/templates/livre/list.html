@@ -18,9 +18,9 @@
                 <div class="container-fluid">
                     <div class="nk-content-inner">
                         <div class="nk-content-body">
-                            <div class="nk-block-head nk-block-head-sm">
+                            <div class="nk-block-head nk-block-head-sm"><br><br><br>
                                 <div class="nk-block-between g-3">
-                                    <div class="nk-block-head-content"><br><br>&nbsp; &nbsp;
+                                    <div class="nk-block-head-content">
                                         <h3 class="nk-block-title page-title">Livres</h3>
                                         <div class="nk-block-des text-soft d-none d-md-inline-flex">
                                             <ul class="breadcrumb breadcrumb-pipe">
@@ -204,7 +204,6 @@
                                                     <div class="nk-tb-col tb-col-xxl"><span>Occurences</span></div>
                                                     <div class="nk-tb-col tb-col-lg"><span>Date Publication</span></div>
                                                     <div class="nk-tb-col tb-col-md"><span>Status</span></div>
-                                                    <div class="nk-tb-col tb-col-xxl"><span>Auteur</span></div>
                                                     <div class="nk-tb-col nk-tb-col-tools">&nbsp;</div>
                                                 </div><!-- .nk-tb-item -->
 
@@ -239,11 +238,8 @@
                                                         <span class="tb-date" th:text="${livre.datePublication}">{livre.datePublication}</span>
                                                     </div>
                                                     <div class="nk-tb-col tb-col-md">
-                                                        <span class="tb-status text-grey">Visited</span>
-                                                        <span data-toggle="tooltip" title="Visited at 11 Fab, 2021 01:02 PM" data-placement="top"><em class="icon ni ni-info"></em></span>
-                                                    </div>
-                                                    <div class="nk-tb-col tb-col-xxl">
-                                                        <span>Ernesto Vargas</span>
+                                                        <span th:if="${livre.actif}" class="tb-status text-success">Emprunt</span>
+                                                        <span th:if="${not livre.actif}" class="tb-status text-danger">Lecture</span>
                                                     </div>
                                                     <div class="nk-tb-col nk-tb-col-tools">
                                                         <ul class="nk-tb-actions gx-1">
@@ -257,8 +253,8 @@
                                                                     <a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
                                                                     <div class="dropdown-menu dropdown-menu-right">
                                                                         <ul class="link-list-opt no-bdr">
-                                                                            <li><a href="#" data-toggle="modal" data-target="#editAppointment"><em class="icon ni ni-edit"></em><span>Edit</span></a></li>
-                                                                            <li><a th:href="@{/livre/delete/}+${livre.idLivre}" onclick="confirm('voulez vous supprimer le livre?')"><em class="icon ni ni-trash"></em><span>Delete</span></a></li>
+                                                                            <li><a href="#" data-toggle="modal" data-target="#editAppointment"><em class="icon ni ni-edit"></em><span>Modifier</span></a></li>
+                                                                            <li><a th:href="@{/livre/delete?idLivre=}+${livre.idLivre}" onclick="confirm('voulez vous supprimer le livre?')"><em class="icon ni ni-trash"></em><span>Supprimer</span></a></li>
                                                                         </ul>
                                                                     </div>
                                                                 </div>
@@ -266,21 +262,17 @@
                                                         </ul>
                                                     </div>
                                                 </div><!-- .nk-tb-item -->
-
-
                                             </div>
                                         </div><!-- .card-inner -->
                                         <div class="card-inner">
                                             <div class="nk-block-between-md g-3">
                                                 <div class="g">
                                                     <ul class="pagination justify-content-center justify-content-md-start">
-                                                        <li class="page-item" th:class="${livres.isFirst} ? '' : 'disabled'"><a class="page-link" th:href="@{/livre/list(page=${livres.number - 1})}">Prev</a></li>
-<!--                                                        <li class="page-item"><a class="page-link">1</a></li>-->
-<!--                                                        <li class="page-item"><a class="page-link">2</a></li>-->
+                                                        <li th:class="${livres.isFirst} ? 'disabled' : ''"><a class="page-link" th:href="@{/livre/list(page=${livres.number - 1})}">Prev</a></li>
 
-<!--                                                        <li th:each="pageNum : ${#numbers.sequence(livres.number, livres.number + 4)}" th:class="${pageNum == livres.number} ? 'active' : ''">-->
-<!--                                                            <a th:href="@{/livre/list(page=${pageNum})}" th:text="${pageNum}">Page {pageNum}</a>-->
-<!--                                                        </li>-->
+                                                        <li th:each="pageNum : ${#numbers.sequence(livres.number, livres.totalPages - 2)}" class="page-item">
+                                                            <a th:href="@{/livre/list(page=${pageNum})}" class="page-link" th:text="${pageNum}">Page {pageNum}</a>
+                                                        </li>
 
                                                         <li class="page-item" th:class="${livres.isLast} ? 'disabled' : ''">
                                                             <a class="page-link" th:href="@{/livre/list(page=${livres.number + 1})}">Next</a>
@@ -296,11 +288,10 @@
                                                         <div>Page</div>
                                                         <div>
                                                             <select class="form-select form-select-sm" data-search="on" data-dropdown="xs center">
-                                                                <option value="page-1">1</option>
-                                                                <option value="page-2">2</option>
+                                                                <option value="page-1" th:each="pageNum : ${#numbers.sequence(livres.number, livres.totalPages - 1)}" th:text="${pageNum}"></option>
                                                             </select>
                                                         </div>
-                                                        <div>OF 102</div>
+                                                        OF <div th:text="${livres.totalPages}"></div>
                                                     </div>
                                                 </div><!-- .pagination-goto -->
                                             </div><!-- .nk-block-between -->
@@ -374,9 +365,8 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="form-label">Categorie</label>
-                                <div class="form-control-wrap">
-                                    <select class="form-select" data-placeholder="Selectionne une Catégorie" th:field="*{categorie}">
-                                        <option value="">Select</option>
+                                <div>
+                                    <select class="form-select form-select-sm" data-search="on" data-dropdown="xs center" th:field="*{categorie}">
                                         <option th:each="categorie : ${categories}" th:value="${categorie.idCategorie}" th:text="${categorie.nomCategorie}"></option>
                                     </select>
                                 </div>

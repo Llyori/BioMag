@@ -6,11 +6,13 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -40,9 +42,17 @@ public class Client {
     private Collection<AppRoles> appRoles = new ArrayList<>();
     @OneToMany(mappedBy = "client")
     private List<Emprunt> emprunt;
+//    @OneToMany(mappedBy = "client")
+//    private List<ProfilUtilisateur> profilUtilisateur;
     @OneToMany(mappedBy = "client")
     private List<Souscription> souscription;
     private boolean status;
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
+    @NotNull
+    private Date dateNaissance;
+    private String sexe;
+    @Column(columnDefinition = "boolean default false")
+    public boolean isFirstLogin;
 
     public Client(Long idClient, String firstName, String secondName, Long numIdCart, String email, String password, String phoneNumber, String confPassword, String codeVerification, boolean enabled, @Nullable Collection<AppRoles> appRoles) {
         this.idClient = idClient;

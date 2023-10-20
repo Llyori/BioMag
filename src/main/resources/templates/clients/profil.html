@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="zxx" class="js">
+
+<div th:include="/modal/header2.html"></div>
+
+<body class="nk-body ui-rounder npc-default has-sidebar ">
+<div class="nk-app-root">
+    <div th:include="/modal/side-bar.html"></div>
+    <!-- main @s -->
+    <div class="nk-main ">
+        <!-- wrap @s -->
+        <div class="nk-wrap ">
+            <!-- main header @s -->
+            <div th:include="/modal/header-bar.html"></div>&nbsp;
+            <!-- main header @e -->
+            <!-- content @s -->
+            <div class="nk-content ">
+                <div class="container-fluid">
+                    <div class="nk-content-inner">
+                        <div class="nk-content-body"><br><br><br>
+                            <div class="nk-block-head">
+                                <div class="nk-block-head-content">
+                                    <h3 class="nk-block-title page-title">Utilisateur/ <strong class="text-primary small" th:text="${client.firstName}"></strong></h3>
+                                </div>
+                            </div>
+                            <div class="nk-block nk-block-lg">
+                                <div class="card">
+                                    <div class="card-aside-wrap">
+                                        <div class="card-content">
+                                            <ul class="nav nav-tabs nav-tabs-mb-icon nav-tabs-card">
+                                                <li class="nav-item">
+                                                    <a class="nav-link active" data-toggle="tab" href="#tabItem1"><em class="icon ni ni-user-circle-fill"></em><span>Informations Personelles</span></a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" data-toggle="tab" href="#tabItem4"><em class="icon ni ni-money"></em><span>Activités</span></a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" data-toggle="tab" href="#tabItem5"><em class="icon ni ni-wallet-in"></em><span>Payements</span> </a>
+                                                </li>
+                                            </ul>
+                                            <div class="card-inner">
+                                                <div class="tab-content">
+                                                    <div class="tab-pane active" id="tabItem1">
+                                                        <div class="nk-block nk-block-between">
+                                                            <div class="nk-block-head">
+                                                                <h6 class="title">Informations Personelles</h6>
+                                                                <p>Inforùations personnelles sur l'utilisateur.</p>
+                                                            </div><!-- .nk-block-head -->
+                                                            <div class="nk-block">
+                                                                <a href="#" class="btn btn-white btn-icon btn-outline-light" data-toggle="modal" data-target="#editPersonal">
+                                                                    <em class="icon ni ni-edit"></em>
+                                                                </a>
+                                                            </div>
+                                                        </div><!-- .nk-block-between  -->
+                                                        <div class="nk-block">
+                                                            <div class="profile-ud-list">
+                                                                <div class="profile-ud-item">
+                                                                    <div class="profile-ud wider">
+                                                                        <span class="profile-ud-label">Nom</span>
+                                                                        <span class="profile-ud-value" th:text="${client.firstName}"></span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="profile-ud-item">
+                                                                    <div class="profile-ud wider">
+                                                                        <span class="profile-ud-label">Prénom</span>
+                                                                        <span class="profile-ud-value" th:text="${client.secondName}"></span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="profile-ud-item">
+                                                                    <div class="profile-ud wider">
+                                                                        <span class="profile-ud-label">Age</span>
+                                                                        <span class="profile-ud-value">41 years 0 months 3 days</span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="profile-ud-item">
+                                                                    <div class="profile-ud wider">
+                                                                        <span class="profile-ud-label">Sexe</span>
+                                                                        <span class="profile-ud-value">Male</span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="profile-ud-item">
+                                                                    <div class="profile-ud wider">
+                                                                        <span class="profile-ud-label">Téléphone</span>
+                                                                        <span class="profile-ud-value" th:text="${client.phoneNumber}"></span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="profile-ud-item">
+                                                                    <div class="profile-ud wider">
+                                                                        <span class="profile-ud-label">Date of Birth</span>
+                                                                        <span class="profile-ud-value">10 Aug, 1980</span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="profile-ud-item">
+                                                                    <div class="profile-ud wider">
+                                                                        <span class="profile-ud-label">Identifiant</span>
+                                                                        <span class="profile-ud-value" th:text="'#'+${client.idClient}"></span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="profile-ud-item">
+                                                                    <div class="profile-ud wider">
+                                                                        <span class="profile-ud-label">Addresse E-Mail</span>
+                                                                        <span class="profile-ud-value" th:text="${client.email}"></span>
+                                                                    </div>
+                                                                </div>
+                                                            </div><!-- .profile-ud-list -->
+                                                        </div><!-- .nk-block -->
+                                                        <div class="nk-block">
+                                                            <div class="nk-block-head nk-block-head-line">
+                                                                <h6 class="title overline-title text-base">Informations Additionnelles</h6>
+                                                            </div><!-- .nk-block-head -->
+                                                            <div class="profile-ud-list">
+                                                                <div class="profile-ud-item">
+                                                                    <div class="profile-ud wider">
+                                                                        <span class="profile-ud-label">Consulant By</span>
+                                                                        <span class="profile-ud-value">Ernesto Vargas</span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="profile-ud-item">
+                                                                    <div class="profile-ud wider">
+                                                                        <span class="profile-ud-label">Type d'Utilisateur</span>
+                                                                        <span class="profile-ud-value">In Patient</span>
+                                                                    </div>
+                                                                </div>
+                                                            </div><!-- .profile-ud-list -->
+                                                        </div><!-- .nk-block -->
+                                                        <div class="nk-divider divider md"></div>
+                                                    </div><!-- tab pane -->
+                                                    <!--tab pane-->
+                                                    <div class="tab-pane" id="tabItem4">
+                                                        <div class="nk-block nk-block-between">
+                                                            <div class="nk-block-head">
+                                                                <h6 class="title">Informations sur les Activités</h6>
+                                                                <p>Mouvements de l'utilisateur sur les emprunts.</p>
+                                                            </div><!-- .nk-block-head -->
+                                                        </div><!-- .nk-block-between  -->
+                                                        <div class="nk-block">
+                                                            <div class="card">
+                                                                <div class="nk-tb-list nk-tb-ulist is-compact">
+                                                                    <div class="nk-tb-item nk-tb-head">
+                                                                        <div class="nk-tb-col tb-col-sm"><span class="sub-text">Date</span></div>
+                                                                        <div class="nk-tb-col"><span class="sub-text">Catégorie</span></div>
+                                                                        <div class="nk-tb-col tb-col-sm"><span class="sub-text">Livres</span></div>
+                                                                        <div class="nk-tb-col tb-col-md"><span class="sub-text">Occurences</span></div>
+                                                                    </div><!-- .nk-tb-item -->
+                                                                    <div class="nk-tb-item">
+                                                                        <div class="nk-tb-col tb-col-sm">
+                                                                            <span>10 Feb 2020</span>
+                                                                        </div>
+                                                                        <div class="nk-tb-col">
+                                                                            <span>Eye Check</span>
+                                                                        </div>
+                                                                        <div class="nk-tb-col tb-col-sm">
+                                                                            <span>Procedures</span>
+                                                                        </div>
+                                                                        <div class="nk-tb-col tb-col-md">
+                                                                            <span>35</span>
+                                                                        </div>
+                                                                    </div><!-- .nk-tb-item -->
+                                                                </div><!-- .nk-tb-list -->
+                                                            </div><!-- .card -->
+                                                        </div><!-- .nk-block -->
+                                                    </div>
+                                                    <!--tab pane-->
+                                                    <div class="tab-pane" id="tabItem5">
+                                                        <div class="nk-block nk-block-between">
+                                                            <div class="nk-block-head">
+                                                                <h6 class="title">Informations sur le Payement</h6>
+                                                                <p>Mouvements financiers de l'utilisateur.</p>
+                                                            </div><!-- .nk-block-head -->
+                                                        </div>
+                                                        <div class="nk-block">
+                                                            <div class="card">
+                                                                <div class="nk-tb-list nk-tb-ulist is-compact">
+                                                                    <div class="nk-tb-item nk-tb-head">
+                                                                        <div class="nk-tb-col"><span class="sub-text">Date</span></div>
+                                                                        <div class="nk-tb-col tb-col-sm"><span class="sub-text">Méthode de Payement</span></div>
+                                                                        <div class="nk-tb-col"><span class="sub-text">Montant (FCFA)</span></div>
+                                                                        <div class="nk-tb-col"><span class="sub-text">Statut</span></div>
+                                                                    </div><!-- .nk-tb-item -->
+                                                                    <div class="nk-tb-item">
+                                                                        <div class="nk-tb-col">
+                                                                            <span>10 Feb 2020</span>
+                                                                        </div>
+                                                                        <div class="nk-tb-col tb-col-sm">
+                                                                            <span>Cash</span>
+                                                                        </div>
+                                                                        <div class="nk-tb-col">
+                                                                            <span>200</span>
+                                                                        </div>
+                                                                        <div class="nk-tb-col">
+                                                                            <span class="tb-status text-success">Paid</span>
+                                                                        </div>
+                                                                    </div><!-- .nk-tb-item -->
+                                                                    <div class="nk-tb-item">
+                                                                        <div class="nk-tb-col">
+                                                                            <span>11 Feb 2020</span>
+                                                                        </div>
+                                                                        <div class="nk-tb-col tb-col-sm">
+                                                                            <span>Cash</span>
+                                                                        </div>
+                                                                        <div class="nk-tb-col">
+                                                                            <span>1923</span>
+                                                                        </div>
+                                                                        <div class="nk-tb-col">
+                                                                            <span class="tb-status text-warning">Due</span>
+                                                                        </div>
+                                                                    </div><!-- .nk-tb-item -->
+                                                                </div><!-- .nk-tb-list -->
+                                                            </div><!-- .card -->
+                                                        </div><!-- .nk-block -->
+                                                    </div>
+                                                    <!--tab pane-->
+                                                </div>
+                                                <!--tab content-->
+                                            </div>
+                                            <!--card inner-->
+                                        </div><!-- .card-content -->
+                                        <div class="card-aside card-aside-right user-aside toggle-slide toggle-slide-right toggle-break-xxl" data-content="userAside" data-toggle-screen="xxl" data-toggle-overlay="true" data-toggle-body="true">
+                                            <div class="card-inner-group" data-simplebar>
+                                                <div class="card-inner">
+                                                    <div class="user-card user-card-s2">
+                                                        <div class="user-avatar lg bg-primary">
+                                                            <span>AB</span>
+                                                        </div>
+                                                        <div class="user-info">
+                                                            <div class="badge badge-outline-light badge-pill ucap">Utilisateur</div>
+                                                            <h5 th:text="${client.firstName}+' '+${client.secondName}"></h5>
+                                                            <span class="sub-text" th:text="${client.email}"></span>
+                                                        </div>
+                                                    </div>
+                                                </div><!-- .card-inner -->
+                                                <div class="card-inner card-inner-sm">
+                                                    <ul class="btn-toolbar justify-center gx-1">
+                                                        <li><a href="#" class="btn btn-trigger btn-icon"><em class="icon ni ni-shield-off"></em></a></li>
+                                                        <li><a href="#" class="btn btn-trigger btn-icon"><em class="icon ni ni-mail"></em></a></li>
+                                                        <li><a href="#" class="btn btn-trigger btn-icon"><em class="icon ni ni-download-cloud"></em></a></li>
+                                                    </ul>
+                                                </div><!-- .card-inner -->
+                                                <div class="card-inner">
+                                                    <div class="row text-center">
+                                                        <div class="col-4">
+                                                            <div class="profile-stats">
+                                                                <span class="amount">$2123</span>
+                                                                <span class="sub-text">Facture Totale</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-4">
+                                                            <div class="profile-stats">
+                                                                <span class="amount">$200</span>
+                                                                <span class="sub-text">Payée</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-4">
+                                                            <div class="profile-stats">
+                                                                <span class="amount">$1923</span>
+                                                                <span class="sub-text">En Attente</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div><!-- .card-inner -->
+                                                <div class="card-inner">
+                                                    <h6 class="overline-title-alt mb-2">Additionel</h6>
+                                                    <div class="row g-3">
+                                                        <div class="col-6">
+                                                            <span class="sub-text">ID Utilisateur:</span>
+                                                            <span th:text="'#'+${client.idClient}"></span>
+                                                        </div>
+                                                        <div class="col-6">
+                                                            <span class="sub-text">Date Admission</span>
+                                                            <span>15 Feb, 2019 01:02 PM</span>
+                                                        </div>
+                                                        <div class="col-6">
+                                                            <span class="sub-text">Statut</span>
+                                                            <span class="lead-text text-success" th:text="${client.status}?'Actif':'Inactif'"></span>
+                                                        </div>
+                                                        <div class="col-6">
+                                                            <span class="sub-text">Date de désactivation</span>
+                                                            <span>16 Feb, 2019</span>
+                                                        </div>
+                                                    </div>
+                                                </div><!-- .card-inner -->
+                                            </div><!-- .card-inner -->
+                                        </div><!-- .card-aside -->
+                                    </div><!-- .card-aside-wrap -->
+                                </div>
+                                <!--card-->
+                            </div>
+                            <!--nk block lg-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- content @e -->
+        </div>
+        <!-- wrap @e -->
+    </div>
+    <!-- main @e -->
+</div>
+<!-- app-root @e -->
+<!-- Edit Patient Personal Info-->
+<div class="modal fade" tabindex="-1" role="dialog" id="editPersonal">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <a href="#" class="close" data-dismiss="modal"><em class="icon ni ni-cross-sm"></em></a>
+            <div class="modal-body modal-body-md">
+                <h5 class="modal-title">Update Personal Info</h5>
+                <form action="#" class="mt-4">
+                    <div class="row g-gs">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label" for="editName">Name</label>
+                                <div class="form-control-wrap">
+                                    <input type="text" class="form-control" id="editName" value="Abu Bin Isthiyak" placeholder="Name">
+                                </div>
+                            </div>
+                        </div><!-- .col -->
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label" for="editEmail">Email</label>
+                                <div class="form-control-wrap">
+                                    <input type="email" class="form-control" id="editEmail" value="info@softnio.com" placeholder="example@email.com">
+                                </div>
+                            </div>
+                        </div><!-- .col -->
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label" for="editMobile">Mobile Number</label>
+                                <div class="form-control-wrap">
+                                    <input type="text" class="form-control" id="editMobile" placeholder="Mobile No." value="+811 847-4958">
+                                </div>
+                            </div>
+                        </div><!-- .col -->
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label">Gender</label>
+                                <div class="form-control-wrap">
+                                    <select class="form-select" data-placeholder="Select Gender">
+                                        <option value="">Select</option>
+                                        <option value="option_select_sex">Male</option>
+                                        <option value="option_select_sex">Female</option>
+                                        <option value="option_select_sex">Others</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div><!-- .col -->
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label">Date of Birth</label>
+                                <div class="form-control-wrap">
+                                    <div class="form-icon form-icon-right">
+                                        <em class="icon ni ni-calendar"></em>
+                                    </div>
+                                    <input type="text" class="form-control date-picker" data-date-format="dd-mm-yyyy" placeholder="dd-mm-yyyy">
+                                </div>
+                            </div>
+                        </div><!-- .col -->
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label">Bed Group</label>
+                                <div class="form-control-wrap">
+                                    <select class="form-select" data-placeholder="Select Bed Group">
+                                        <option value="">Select</option>
+                                        <option value="option_select_bed">Cabin - 4th Floor</option>
+                                        <option value="option_select_bed">Male Ward - 1st Floor</option>
+                                        <option value="option_select_bed">Female Ward - 1st Floor</option>
+                                        <option value="option_select_bed">Private Ward - 2nd Floor</option>
+                                        <option value="option_select_bed">Cabin - 4th Floor</option>
+                                        <option value="option_select_bed">ICU - 3rd Floor</option>
+                                        <option value="option_select_bed">NICU - 3rd Floor</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div><!-- .col -->
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label">Bed Number</label>
+                                <div class="form-control-wrap">
+                                    <select class="form-select" data-placeholder="Select Bed Number">
+                                        <option value="">Select</option>
+                                        <option value="default_option">201</option>
+                                        <option value="option_select_bednum">101</option>
+                                        <option value="option_select_bednum">102</option>
+                                        <option value="option_select_bednum">103</option>
+                                        <option value="option_select_bednum">105</option>
+                                        <option value="option_select_bednum">201</option>
+                                        <option value="option_select_bednum">202</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div><!-- .col -->
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label">Consulant By</label>
+                                <div class="form-control-wrap">
+                                    <select class="form-select" data-placeholder="Select Doctor">
+                                        <option value="">Select</option>
+                                        <option value="default_option">Ernesto Vargas</option>
+                                        <option value="option_select_consulant">Ernesto Vargas</option>
+                                        <option value="option_select_consulant">Janet Snyder</option>
+                                        <option value="option_select_consulant">Amelia Grant</option>
+                                        <option value="option_select_consulant">Debra Grant</option>
+                                        <option value="option_select_consulant">Snyder Debra</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div><!-- .col -->
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label">Admit Date</label>
+                                <div class="form-control-wrap">
+                                    <div class="form-icon form-icon-right">
+                                        <em class="icon ni ni-calendar"></em>
+                                    </div>
+                                    <input type="text" class="form-control date-picker" data-date-format="dd-mm-yyyy" placeholder="dd-mm-yyyy" value="10-02-2020">
+                                </div>
+                            </div>
+                        </div><!-- .col -->
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label">Discharged Date</label>
+                                <div class="form-control-wrap">
+                                    <div class="form-icon form-icon-right">
+                                        <em class="icon ni ni-calendar"></em>
+                                    </div>
+                                    <input type="text" class="form-control date-picker" data-date-format="dd-mm-yyyy" placeholder="dd-mm-yyyy" value="10-02-2020">
+                                </div>
+                            </div>
+                        </div><!-- .col -->
+                        <div class="col-12">
+                            <ul class="align-center flex-wrap flex-sm-nowrap gx-4 gy-2">
+                                <li>
+                                    <button data-dismiss="modal" class="btn btn-primary">Update</button>
+                                </li>
+                                <li>
+                                    <a href="#" class="link link-light" data-dismiss="modal">Cancel</a>
+                                </li>
+                            </ul>
+                        </div><!-- .col -->
+                    </div>
+                </form>
+            </div><!-- .modal-body -->
+        </div><!-- .modal-content -->
+    </div><!-- .modal-dialog -->
+</div><!-- .modal -->
+<!-- Add Diagnosis  Info-->
+<div class="modal fade" tabindex="-1" role="dialog" id="addDiagnosis">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <a href="#" class="close" data-dismiss="modal"><em class="icon ni ni-cross-sm"></em></a>
+            <div class="modal-body modal-body-md">
+                <h5 class="modal-title">Diagnosis Info</h5>
+                <form action="#" class="mt-4">
+                    <div class="row g-gs">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label" for="reportType">Report Type</label>
+                                <div class="form-control-wrap">
+                                    <input type="text" class="form-control" id="reportType" placeholder="Report Type">
+                                </div>
+                            </div>
+                        </div><!-- .col -->
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label">Date</label>
+                                <div class="form-control-wrap">
+                                    <div class="form-icon form-icon-right">
+                                        <em class="icon ni ni-calendar"></em>
+                                    </div>
+                                    <input type="text" class="form-control date-picker" data-date-format="dd-mm-yyyy" placeholder="dd-mm-yyyy">
+                                </div>
+                            </div>
+                        </div><!-- .col -->
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label">Status</label>
+                                <div class="form-control-wrap">
+                                    <select class="form-select" data-placeholder="Select Status">
+                                        <option value="">Select</option>
+                                        <option value="option_select_status">Done</option>
+                                        <option value="option_select_status">Pending</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div><!-- .col -->
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label">Test Report</label>
+                                <div class="form-control-wrap">
+                                    <div class="custom-file">
+                                        <input type="file" multiple class="custom-file-input" id="testReport">
+                                        <label class="custom-file-label" for="testReport">Choose files</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--col-->
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label class="form-label">Description</label>
+                                <div class="form-control-wrap">
+                                    <div class="quill-basic">
+                                        <p>Hello World!</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--col-->
+                        <div class="col-12">
+                            <ul class="align-center flex-wrap flex-sm-nowrap gx-4 gy-2">
+                                <li>
+                                    <button data-dismiss="modal" class="btn btn-primary">Add Diagnosis</button>
+                                </li>
+                                <li>
+                                    <a href="#" class="link link-light" data-dismiss="modal">Cancel</a>
+                                </li>
+                            </ul>
+                        </div><!-- .col -->
+                    </div>
+                </form>
+            </div><!-- .modal-body -->
+        </div><!-- .modal-content -->
+    </div><!-- .modal-dialog -->
+</div><!-- .modal -->
+<!-- Add Prescription  Info-->
+<div class="modal fade" tabindex="-1" role="dialog" id="addPrescription">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <a href="#" class="close" data-dismiss="modal"><em class="icon ni ni-cross-sm"></em></a>
+            <div class="modal-body modal-body-md">
+                <h5 class="modal-title">Prescription Info</h5>
+                <form action="#" class="mt-4">
+                    <div class="row g-gs">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label" for="medicineCategory">Medicine Category</label>
+                                <div class="form-control-wrap">
+                                    <input type="text" class="form-control" id="medicineCategory" placeholder="Medicine Category">
+                                </div>
+                            </div>
+                        </div><!-- .col -->
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label" for="medicine">Medicine</label>
+                                <div class="form-control-wrap">
+                                    <input type="text" class="form-control" id="medicine" placeholder="Medicine">
+                                </div>
+                            </div>
+                        </div><!-- .col -->
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label" for="dosage">Dosage</label>
+                                <div class="form-control-wrap">
+                                    <input type="text" class="form-control" id="dosage" placeholder="0 - 0 - 0">
+                                </div>
+                            </div>
+                        </div><!-- .col -->
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label">Prescribed By</label>
+                                <div class="form-control-wrap">
+                                    <select class="form-select" data-placeholder="Select Doctor">
+                                        <option value="">Select</option>
+                                        <option value="option_select_consulant">Ernesto Vargas</option>
+                                        <option value="option_select_consulant">Janet Snyder</option>
+                                        <option value="option_select_consulant">Amelia Grant</option>
+                                        <option value="option_select_consulant">Debra Grant</option>
+                                        <option value="option_select_consulant">Snyder Debra</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div><!-- .col -->
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label class="form-label">Instruction</label>
+                                <div class="form-control-wrap">
+                                    <div class="quill-basic">
+                                        <p>Hello World!</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--col-->
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label">Status</label>
+                                <div class="form-control-wrap">
+                                    <select class="form-select" data-placeholder="Select Status">
+                                        <option value="">Select Status</option>
+                                        <option value="option_select_status">Active</option>
+                                        <option value="option_select_status">Inactive</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div><!-- .col -->
+                        <div class="col-12">
+                            <ul class="align-center flex-wrap flex-sm-nowrap gx-4 gy-2">
+                                <li>
+                                    <button data-dismiss="modal" class="btn btn-primary">Add Prescription</button>
+                                </li>
+                                <li>
+                                    <a href="#" class="link link-light" data-dismiss="modal">Cancel</a>
+                                </li>
+                            </ul>
+                        </div><!-- .col -->
+                    </div>
+                </form>
+            </div><!-- .modal-body -->
+        </div><!-- .modal-content -->
+    </div><!-- .modal-dialog -->
+</div><!-- .modal -->
+<!-- Add Charges  Info-->
+<div class="modal fade" tabindex="-1" role="dialog" id="addCharges">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <a href="#" class="close" data-dismiss="modal"><em class="icon ni ni-cross-sm"></em></a>
+            <div class="modal-body modal-body-md">
+                <h5 class="modal-title">Charges Info</h5>
+                <form action="#" class="mt-4">
+                    <div class="row g-gs">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label">Date</label>
+                                <div class="form-control-wrap">
+                                    <div class="form-icon form-icon-right">
+                                        <em class="icon ni ni-calendar"></em>
+                                    </div>
+                                    <input type="text" class="form-control date-picker" data-date-format="dd-mm-yyyy" placeholder="dd-mm-yyyy">
+                                </div>
+                            </div>
+                        </div><!-- .col -->
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label" for="category">Category</label>
+                                <div class="form-control-wrap">
+                                    <input type="text" class="form-control" id="category" placeholder="Category">
+                                </div>
+                            </div>
+                        </div><!-- .col -->
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label" for="chargesType">Charges Type</label>
+                                <div class="form-control-wrap">
+                                    <input type="text" class="form-control" id="chargesType" placeholder="Charges Type">
+                                </div>
+                            </div>
+                        </div><!-- .col -->
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label" for="standradChargesType">Standrad Charges</label>
+                                <div class="form-control-wrap">
+                                    <input type="text" class="form-control" id="standradChargesType" placeholder="Standrad Charges">
+                                </div>
+                            </div>
+                        </div><!-- .col -->
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label" for="tpaChargesType">TPA Charges</label>
+                                <div class="form-control-wrap">
+                                    <input type="text" class="form-control" id="tpaChargesType" placeholder="TPA Charges">
+                                </div>
+                            </div>
+                        </div><!-- .col -->
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label" for="applied ChargesType">Applied Charges</label>
+                                <div class="form-control-wrap">
+                                    <input type="text" class="form-control" id="applied ChargesType" placeholder="Applied Charges">
+                                </div>
+                            </div>
+                        </div><!-- .col -->
+                        <div class="col-12">
+                            <ul class="align-center flex-wrap flex-sm-nowrap gx-4 gy-2">
+                                <li>
+                                    <button data-dismiss="modal" class="btn btn-primary">Add Charges</button>
+                                </li>
+                                <li>
+                                    <a href="#" class="link link-light" data-dismiss="modal">Cancel</a>
+                                </li>
+                            </ul>
+                        </div><!-- .col -->
+                    </div>
+                </form>
+            </div><!-- .modal-body -->
+        </div><!-- .modal-content -->
+    </div><!-- .modal-dialog -->
+</div><!-- .modal -->
+<!-- Add Payment  Info-->
+<div class="modal fade" tabindex="-1" role="dialog" id="addPayment">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <a href="#" class="close" data-dismiss="modal"><em class="icon ni ni-cross-sm"></em></a>
+            <div class="modal-body modal-body-md">
+                <h5 class="modal-title">Payment Info</h5>
+                <form action="#" class="mt-4">
+                    <div class="row g-gs">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label">Date</label>
+                                <div class="form-control-wrap">
+                                    <div class="form-icon form-icon-right">
+                                        <em class="icon ni ni-calendar"></em>
+                                    </div>
+                                    <input type="text" class="form-control date-picker" data-date-format="dd-mm-yyyy" placeholder="dd-mm-yyyy">
+                                </div>
+                            </div>
+                        </div><!-- .col -->
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label">Payment Method</label>
+                                <div class="form-control-wrap">
+                                    <select class="form-select" data-placeholder="Select Method">
+                                        <option value="">Select</option>
+                                        <option value="option_select_method">Cash</option>
+                                        <option value="option_select_method">Card</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div><!-- .col -->
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label" for="amount">Amount</label>
+                                <div class="form-control-wrap">
+                                    <input type="text" class="form-control" id="amount" placeholder="Amount">
+                                </div>
+                            </div>
+                        </div><!-- .col -->
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label">Status</label>
+                                <div class="form-control-wrap">
+                                    <select class="form-select" data-placeholder="Select Status">
+                                        <option value="">Select</option>
+                                        <option value="option_select_status">Paid</option>
+                                        <option value="option_select_status">Due</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div><!-- .col -->
+                        <div class="col-12">
+                            <ul class="align-center flex-wrap flex-sm-nowrap gx-4 gy-2">
+                                <li>
+                                    <button data-dismiss="modal" class="btn btn-primary">Add Payment</button>
+                                </li>
+                                <li>
+                                    <a href="#" class="link link-light" data-dismiss="modal">Cancel</a>
+                                </li>
+                            </ul>
+                        </div><!-- .col -->
+                    </div>
+                </form>
+            </div><!-- .modal-body -->
+        </div><!-- .modal-content -->
+    </div><!-- .modal-dialog -->
+</div><!-- .modal -->
+<!-- JavaScript -->
+<script src="./assets/js/bundle.js?ver=2.9.1"></script>
+<script src="./assets/js/scripts.js?ver=2.9.1"></script>
+<link rel="stylesheet" href="./assets/css/editors/quill.css?ver=2.9.1">
+<script src="./assets/js/libs/editors/quill.js?ver=2.9.1"></script>
+<script src="./assets/js/editors.js?ver=2.9.1"></script>
+</body>
+
+</html>

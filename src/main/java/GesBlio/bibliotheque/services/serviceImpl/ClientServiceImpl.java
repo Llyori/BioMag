@@ -1,12 +1,19 @@
 package GesBlio.bibliotheque.services.serviceImpl;
 
+import GesBlio.bibliotheque.dao.CategorieRepository;
+import GesBlio.bibliotheque.dao.ProfilUtilisateurRepository;
 import GesBlio.bibliotheque.entities.AppRoles;
+import GesBlio.bibliotheque.entities.Categorie;
 import GesBlio.bibliotheque.entities.Client;
+import GesBlio.bibliotheque.entities.ProfilUtilisateur;
 import GesBlio.bibliotheque.repositories.AppRolesRepository;
 import GesBlio.bibliotheque.repositories.ClientRepository;
 import GesBlio.bibliotheque.services.ClientService;
 import com.sun.mail.util.MailConnectException;
 import net.bytebuddy.utility.RandomString;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -25,16 +32,27 @@ public class ClientServiceImpl implements ClientService {
     private AppRolesRepository rolesRepository;
     private PasswordEncoder passwordEncoder;
     private JavaMailSender mailSender;
+    private ProfilUtilisateurRepository profilUtilisateurRepository;
+    private CategorieRepository categorieRepository;
 
-    public ClientServiceImpl(ClientRepository clientRepository, AppRolesRepository rolesRepository, PasswordEncoder passwordEncoder, JavaMailSender mailSender) {
+    public ClientServiceImpl(ClientRepository clientRepository, AppRolesRepository rolesRepository, PasswordEncoder passwordEncoder, JavaMailSender mailSender,
+                             ProfilUtilisateurRepository profilUtilisateurRepository, CategorieRepository categorieRepository) {
         this.clientRepository = clientRepository;
         this.rolesRepository = rolesRepository;
         this.passwordEncoder = passwordEncoder;
         this.mailSender = mailSender;
+        this.profilUtilisateurRepository = profilUtilisateurRepository;
+        this.categorieRepository = categorieRepository;
     }
 
     @Override
-    public List<Client> list() {
+    public Page<Client> list(int pageNum, int pageSize) {
+        Pageable pageable = PageRequest.of(pageNum, pageSize);
+        return clientRepository.findAll(pageable);
+    }
+
+    @Override
+    public List<Client> clients() {
         return clientRepository.findAll();
     }
 
@@ -114,6 +132,8 @@ public class ClientServiceImpl implements ClientService {
             return false;
         else{
             clientRepository.enable(client.getIdClient());
+            ProfilUtilisateur profilUtilisateur = new ProfilUtilisateur(client);
+            profilUtilisateurRepository.save(profilUtilisateur);
             return true;
         }
     }
@@ -175,5 +195,19 @@ public class ClientServiceImpl implements ClientService {
         AppRoles appRoles = rolesRepository.findByRoleName(roleName);
         client.getAppRoles().add(appRoles);
         clientRepository.save(client);
+    }
+
+    @Override
+    public void addProfilToUser(Long idClient, Long idCategorie) {
+        Client client = clientRepository.findById(idClient).get();
+        Categorie categorie = categorieRepository.findById(idCategorie).get();
+        ProfilUtilisateur profilUtilisateur = profilUtilisateurRepository.findByClient(client);
+        profilUtilisateur.getCategories().add(categorie);
+        profilUtilisateurRepository.save(profilUtilisateur);
+    }
+
+    @Override
+    public void newProfile(ProfilUtilisateur profilUtilisateur) {
+        profilUtilisateurRepository.save(profilUtilisateur);
     }
 }

@@ -2,10 +2,14 @@ package GesBlio.bibliotheque.web;
 
 import GesBlio.bibliotheque.Utility;
 import GesBlio.bibliotheque.entities.Client;
+import GesBlio.bibliotheque.entities.ProfilUtilisateur;
+import GesBlio.bibliotheque.services.CategorieService;
 import GesBlio.bibliotheque.services.ClientService;
+import com.sun.security.auth.UserPrincipal;
 import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -15,13 +19,16 @@ import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
 import java.net.UnknownHostException;
+import java.security.Principal;
 
 @Controller
 public class AuthController {
     private static Client cl = new Client();
     private ClientService clientService;
-    public AuthController(ClientService clientService) {
+    private CategorieService categorieService;
+    public AuthController(ClientService clientService, CategorieService categorieService) {
         this.clientService = clientService;
+        this.categorieService = categorieService;
     }
     @GetMapping("/login")
     public String login(){
@@ -34,11 +41,37 @@ public class AuthController {
     @GetMapping("/contact")
     public String contactPage() { return "home-pages/contact"; }
     @GetMapping("/index")
-    public String home() { return "index"; }
+    public String home(Model model) {
+        Client client = clientService.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
+        model.addAttribute("client", client);
+        if(client.isFirstLogin){
+            model.addAttribute("categories", categorieService.categories());
+            model.addAttribute("profil", new ProfilUtilisateur());
+            return "clients/profilUtilisateur";
+        }
+        else{
+            return "index";
+        }
+    }
+    @PostMapping("/profile")
+    public String updateProfile(@ModelAttribute("profil") ProfilUtilisateur profilUtilisateur){
+        System.out.println(profilUtilisateur);
+        return "index";
+    }
     @GetMapping("/register")
     public String register(Model model) {
         model.addAttribute("client", new Client());
         return "authentification/register";
+    }
+    @GetMapping("/nouveau")
+    public String nouveau(Model model) {
+        model.addAttribute("client", new Client());
+        return "clients/add";
+    }
+    @GetMapping("/profil")
+    public String profil(Model model, @RequestParam("idUtilisateur") Long idUtilisateur) {
+        model.addAttribute("client", clientService.findById(idUtilisateur));
+        return "clients/profil";
     }
     @PostMapping("/register")
     public String saveClient(@ModelAttribute("client") Client client, HttpServletRequest request) throws MessagingException, UnsupportedEncodingException, UnknownHostException {
@@ -65,6 +98,8 @@ public class AuthController {
     @GetMapping("/verify")
     public String verifyAccount(@Param("code") String code, Model model){
         boolean verified = clientService.verify(code);
+        if(verified)
+            clientService.newProfile(new ProfilUtilisateur(clientService.findByEmail(cl.getEmail())));
         String pageTitle = verified ? "Verification Success" : "Verfication Failed";
         model.addAttribute("pageTitle", pageTitle);
         return "authentification/" + (verified ? "verifySuccess" : "verifyFail");

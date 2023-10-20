@@ -50,15 +50,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
                 }
                 //si le prénom est passé on l'utilise
-                else if (client1 != null) {
-                    client1.getAppRoles().forEach(roles -> {
-                        authorities.add(new SimpleGrantedAuthority(roles.getRoleName()));
-                    });
-                    if(client1.isEnabled())
-                        return new User(client1.getFirstName(), client1.getPassword(), authorities);
-                    else
-                        return null;
-                }
+//                else if (client1 != null) {
+//                    client1.getAppRoles().forEach(roles -> {
+//                        authorities.add(new SimpleGrantedAuthority(roles.getRoleName()));
+//                    });
+//                    if(client1.isEnabled())
+//                        return new User(client1.getFirstName(), client1.getPassword(), authorities);
+//                    else
+//                        return null;
+//                }
                 throw new UsernameNotFoundException("user not found");
             }
         });
@@ -72,7 +72,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable();
+        //http.csrf().disable();
         http.headers().frameOptions().disable();
         http.formLogin()
                 .loginPage("/login")
@@ -83,7 +83,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .logout();
         http.authorizeHttpRequests()
-                .antMatchers("/livre/**", "/index").authenticated()
+                .antMatchers("/livre/**", "/index", "/categorie/**", "/clients/**", "/nouveau").authenticated()
+                .antMatchers("/profil/**").authenticated()
                 .anyRequest().permitAll();
     }
 }

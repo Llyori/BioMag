@@ -1,17 +1,20 @@
 package GesBlio.bibliotheque.web;
 
 import GesBlio.bibliotheque.RoleClientForm;
+import GesBlio.bibliotheque.entities.Categorie;
 import GesBlio.bibliotheque.entities.Client;
 import GesBlio.bibliotheque.services.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("/api/client")
+@RequestMapping("/client")
 public class ClientController {
     private ClientService clientService;
 
@@ -19,8 +22,11 @@ public class ClientController {
         this.clientService = clientService;
     }
     @GetMapping(path = "/list")
-    public ResponseEntity<Object> clients(){
-        return new ResponseEntity<>(clientService.list(), HttpStatus.ACCEPTED);
+    public String clients(Model model, @RequestParam(defaultValue = "0") int page){
+        Page<Client> clients = clientService.list(page, 10);
+        model.addAttribute("clients", clients);
+        model.addAttribute("client", new Client());
+        return "clients/list";
     }
     @PostMapping(path = "/addRoleToClient")
     public void addRoleToClient(@RequestBody RoleClientForm roleClientForm){
