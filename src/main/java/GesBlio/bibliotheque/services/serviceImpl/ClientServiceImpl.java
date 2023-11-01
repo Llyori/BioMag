@@ -210,4 +210,22 @@ public class ClientServiceImpl implements ClientService {
     public void newProfile(ProfilUtilisateur profilUtilisateur) {
         profilUtilisateurRepository.save(profilUtilisateur);
     }
+
+    @Override
+    public void updateFirstConnection(Long idClient) {
+        Client client = clientRepository.findById(idClient).get();
+        client.isFirstLogin = false;
+        clientRepository.save(client);
+    }
+
+    @Override
+    @Transactional
+    public void addCategorieToProfile(Long idClient, List<Long> idCategories) {
+        Client client = clientRepository.findById(idClient).get();
+        ProfilUtilisateur profilUtilisateur = profilUtilisateurRepository.findByClient(client);
+        idCategories.forEach(id ->{
+            profilUtilisateur.getCategories().add(categorieRepository.findById(id).get());
+            profilUtilisateurRepository.save(profilUtilisateur);
+        });
+    }
 }

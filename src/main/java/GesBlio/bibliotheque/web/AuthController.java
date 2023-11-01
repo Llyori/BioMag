@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -20,6 +21,8 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
 import java.net.UnknownHostException;
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class AuthController {
@@ -43,20 +46,23 @@ public class AuthController {
     @GetMapping("/index")
     public String home(Model model) {
         Client client = clientService.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
-        model.addAttribute("client", client);
         if(client.isFirstLogin){
-            model.addAttribute("categories", categorieService.categories());
-            model.addAttribute("profil", new ProfilUtilisateur());
+            model.addAttribute("client", client);
+            model.addAttribute("listCategories", categorieService.categories());
+            model.addAttribute("profil", new Object());
             return "clients/profilUtilisateur";
         }
         else{
+            model.addAttribute("client", client);
             return "index";
         }
     }
     @PostMapping("/profile")
-    public String updateProfile(@ModelAttribute("profil") ProfilUtilisateur profilUtilisateur){
-        System.out.println(profilUtilisateur);
-        return "index";
+    @Transactional
+    public String updateProfile(@RequestParam("categories") List<Long> categories, @RequestParam("client") Long idClient){
+        clientService.addCategorieToProfile(idClient, categories);
+        clientService.updateFirstConnection(idClient);
+        return "redirect:/index";
     }
     @GetMapping("/register")
     public String register(Model model) {

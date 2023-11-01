@@ -1,5 +1,6 @@
 package GesBlio.bibliotheque.securite;
 
+import GesBlio.bibliotheque.SessionExpiredHandler;
 import GesBlio.bibliotheque.entities.Client;
 import GesBlio.bibliotheque.services.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,7 @@ import java.util.Collection;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private ClientService clientService;
+    private SessionExpiredHandler sessionExpiredHandler;
 
     public SecurityConfig(ClientService clientService) {
         this.clientService = clientService;
@@ -78,10 +80,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginPage("/login")
                 .usernameParameter("username")
                 .defaultSuccessUrl("/index")
+                .failureHandler(sessionExpiredHandler)
                 .failureUrl("/login?error=true")
                 .permitAll()
                 .and()
-                .logout();
+                .logout()
+                        .logoutUrl("/logout")
+                                .logoutSuccessUrl("/")
+                                        .invalidateHttpSession(true)
+                                                .deleteCookies("JSESSIONID");
+        http.sessionManagement()
+                        .maximumSessions(1)
+                                .expiredUrl("/login");
         http.authorizeHttpRequests()
                 .antMatchers("/livre/**", "/index", "/categorie/**", "/clients/**", "/nouveau").authenticated()
                 .antMatchers("/profil/**").authenticated()

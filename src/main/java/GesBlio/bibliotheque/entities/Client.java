@@ -42,8 +42,6 @@ public class Client {
     private Collection<AppRoles> appRoles = new ArrayList<>();
     @OneToMany(mappedBy = "client")
     private List<Emprunt> emprunt;
-//    @OneToMany(mappedBy = "client")
-//    private List<ProfilUtilisateur> profilUtilisateur;
     @OneToMany(mappedBy = "client")
     private List<Souscription> souscription;
     private boolean status;

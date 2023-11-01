@@ -23,10 +23,10 @@ public interface ClientService {
     void addRoletoUser(String username, String roleName);
     void addProfilToUser(Long idClient, Long idCategorie);
     void newProfile(ProfilUtilisateur profilUtilisateur);
+    void updateFirstConnection(Long idClient);
+    void addCategorieToProfile(Long idClient, List<Long> idCategories);
     boolean sendVerificationEmail(Client client, String siteURL) throws MessagingException, UnsupportedEncodingException;
-
     boolean sendPasswordRecuverEmail(Client client, String siteURL) throws MessagingException, UnsupportedEncodingException;
-
     boolean verify(String codeverification);
     Client updateClient(Client client);
     boolean confirm(String codeverification);

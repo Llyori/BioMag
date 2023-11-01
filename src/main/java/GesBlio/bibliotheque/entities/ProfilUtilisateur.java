@@ -23,4 +23,8 @@ public class ProfilUtilisateur {
     public ProfilUtilisateur(Client client){
         this.client = client;
     }
+    public ProfilUtilisateur(Client client, List<Categorie> categories){
+        this.client = client;
+        this.categories = categories;
+    }
 }

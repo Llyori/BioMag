@@ -46,11 +46,8 @@
                                                     <div class="form-inline flex-nowrap gx-3">
                                                         <div class="form-wrap w-150px">
                                                             <select class="form-select form-select-sm" data-search="off" data-placeholder="Bulk Action">
-                                                                <option value="">Bulk Action</option>
-                                                                <option value="email">Send Email</option>
-                                                                <option value="change">Change Doctor</option>
-                                                                <option value="depart">Change Depart</option>
-                                                                <option value="delete">Delete</option>
+                                                                <option value="">Actions</option>
+                                                                <option value="email">Envoyer Email</option>
                                                             </select>
                                                         </div>
                                                         <div class="btn-wrap">
@@ -82,52 +79,31 @@
                                                                                 <div class="filter-wg dropdown-menu dropdown-menu-xl dropdown-menu-right">
                                                                                     <div class="dropdown-head">
                                                                                         <span class="sub-title dropdown-title">Filtre</span>
-                                                                                        <div class="dropdown">
-                                                                                            <a href="#" class="btn btn-sm btn-icon">
-                                                                                                <em class="icon ni ni-more-h"></em>
-                                                                                            </a>
-                                                                                        </div>
                                                                                     </div>
                                                                                     <div class="dropdown-body dropdown-body-rg">
                                                                                         <div class="row gx-6 gy-3">
                                                                                             <div class="col-6">
                                                                                                 <div class="form-group">
-                                                                                                    <label class="overline-title overline-title-alt">Department</label>
+                                                                                                    <label class="overline-title overline-title-alt">Categorie</label>
                                                                                                     <select class="form-select form-select-sm">
-                                                                                                        <option value="any">Any Type</option>
-                                                                                                        <option value="medicine">Medicine</option>
-                                                                                                        <option value="gastroenterology">Gastroenterology</option>
-                                                                                                        <option value="cardiology">Cardiology</option>
-                                                                                                        <option value="orthopaedics">Orthopaedics</option>
-                                                                                                        <option value="neurology">Neurology</option>
-                                                                                                        <option value="urology">Urology</option>
+                                                                                                        <option value="any">Option</option>
                                                                                                     </select>
                                                                                                 </div>
                                                                                             </div><!-- .col -->
                                                                                             <div class="col-6">
                                                                                                 <div class="form-group">
-                                                                                                    <label class="overline-title overline-title-alt">Status</label>
+                                                                                                    <label class="overline-title overline-title-alt">Statut</label>
                                                                                                     <select class="form-select form-select-sm">
                                                                                                         <option value="any">Any Status</option>
-                                                                                                        <option value="visited">Visited</option>
-                                                                                                        <option value="canceled">Canceled</option>
-                                                                                                        <option value="waiting">Waiting</option>
-                                                                                                        <option value="pending">Pending</option>
-                                                                                                        <option value="deleted">Deleted</option>
                                                                                                     </select>
                                                                                                 </div>
                                                                                             </div><!-- .col -->
                                                                                             <div class="col-6">
                                                                                                 <div class="form-group">
-                                                                                                    <label class="overline-title overline-title-alt">Doctor</label>
+                                                                                                    <label class="overline-title overline-title-alt">Auteur</label>
                                                                                                     <div class="form-control-wrap">
                                                                                                         <select class="form-select" data-placeholder="Select Doctor">
-                                                                                                            <option value="">Select Doctor</option>
-                                                                                                            <option value="option_select_consulant">Joe Larson</option>
-                                                                                                            <option value="option_select_consulant">Patrick Newman</option>
-                                                                                                            <option value="option_select_consulant">Newman Freeman</option>
-                                                                                                            <option value="option_select_consulant">Jane Montgomery</option>
-                                                                                                            <option value="option_select_consulant">Emma Walker</option>
+                                                                                                            <option value="">Select Option</option>
                                                                                                         </select>
                                                                                                     </div>
                                                                                                 </div>
@@ -149,10 +125,6 @@
                                                                                                 </div>
                                                                                             </div>
                                                                                         </div>
-                                                                                    </div>
-                                                                                    <div class="dropdown-foot between">
-                                                                                        <a class="clickable" href="#">Reset Filter</a>
-                                                                                        <a href="#">Save Filter</a>
                                                                                     </div>
                                                                                 </div><!-- .filter-wg -->
                                                                             </div><!-- .dropdown -->
@@ -203,7 +175,7 @@
                                                     <div class="nk-tb-col tb-col-lg"><span>Prix / Jour</span></div>
                                                     <div class="nk-tb-col tb-col-xxl"><span>Occurences</span></div>
                                                     <div class="nk-tb-col tb-col-lg"><span>Date Publication</span></div>
-                                                    <div class="nk-tb-col tb-col-md"><span>Status</span></div>
+                                                    <div class="nk-tb-col tb-col-md"><span>Statut</span></div>
                                                     <div class="nk-tb-col nk-tb-col-tools">&nbsp;</div>
                                                 </div><!-- .nk-tb-item -->
 
@@ -211,7 +183,7 @@
                                                     <div class="nk-tb-col">
                                                         <div class="user-card">
                                                             <div class="user-avatar sm bg-orange-dim">
-                                                                <span>A</span>
+                                                                <span th:text="${livre.nomLivre.substring(0,1)}"></span>
                                                             </div>
                                                             <div class="user-info">
                                                                 <span class="tb-lead" th:text="${livre.nomLivre}">{livre.nomLivre}<span class="dot dot-gray d-md-none ml-1"></span></span>
